@@ -1,0 +1,70 @@
+\name{wig2CSARScore}
+\alias{wig2CSARScore}
+
+\title{ Convert Data from a Wiggle Track (WIG) File to CSAR Binary Format }
+\description{ Convert data from a wiggle track (WIG) file to CSAR binary 
+format and extract enriched regions. }
+
+\usage{ wig2CSARScore(wigfilename, nbchr, chrle, thr=1.0, gap=30) }
+
+\arguments{
+  \item{wigfilename}{ WIG file containing the enrichment-score signal of a 
+transcription factor binding experiment. }
+  \item{nbchr}{ Number of chromosomes. }
+  \item{chrle}{ Vector of lengths of the chromosomes (in base pairs). }
+  \item{thr}{ Minimum score-enrichment level for candidate extraction from 
+the WIG file. Numeric value. }
+  \item{gap}{ Allowed gap between candidate binding regions (in base pairs).}
+}
+\details{ The Wiggle format (WIG) is described on the UCSC Genome 
+Bioinformatics web site: \url{http://genome.ucsc.edu/FAQ/FAQformat}. It allows
+ the display of continuous value data in the genome browser. Although 
+specifically designed for post-processing of WIG files, resulting from the 
+analysis of ChIP-seq experiments (with Bioconductor packages \pkg{BayesPeak},
+ \pkg{CSAR}, \pkg{PICS}, or other tools such as MACS, F-seq, etc.), 
+\pkg{NarrowPeaks} can process other type of sequencing data encoded in WIG 
+format in order to locate regions of high variability in the data. }
+
+\value{
+  A list of two elements:
+   \item{infoscores}{A list with the same elements as reported by the function
+ \code{ChIPseqScore} in the \pkg{CSAR} Bionductor package: chr (Chromosome
+ names), chrL (Chromosome length (bp).), filenames (Name of the files where 
+the score values are stored.), digits (Score values stored on the files need 
+to be divided by 10^\code{digits}).}
+   \item{candidates}{A \code{GRanges} object (see \pkg{GenomicRanges} package)
+ for the enriched regions obtained with the \pkg{CSAR} function \code{sigWin}.
+}
+
+}
+
+\references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 
+package to narrow down transcription factor binding site candidates using 
+functional PCA. \cr
+Muino, J. et al. (2011) ChIP-seq analysis in R (CSAR): An R package for the
+ statistical detection of protein-bound genomic regions. Plant Methods 7:11.
+}
+
+\author{ Pedro Madrigal, \email{pm@engineering.com}}
+
+\seealso{ \code{\link{narrowpeaks}}, \code{\link{NarrowPeaks-package}} }
+
+\examples{
+owd <- setwd(tempdir())
+
+##For this example we will use a subset of the AP1 ChIP-seq data (Kaufmann et
+##al., 2010)
+##The data is obtained after analysis using the CSAR package available in 
+##Bioconductor 
+data("NarrowPeaks-dataset")
+writeLines(wigfile_test, con="wigfile.wig")
+
+##Write binary files with the WIG signal values for each chromosome 
+##independently and obtain regions of read-enrichment with score values greater
+##than 't', allowing a gap of 'g'. Data correspond to enriched regions found up
+##to 105Kb in the Arabidopsis thaliana genome
+wigScores <- wig2CSARScore(wigfilename="wigfile.wig", nbchr = 1, 
+chrle=c(30427671), thr=1.0, gap=30)
+
+setwd(owd)
+}

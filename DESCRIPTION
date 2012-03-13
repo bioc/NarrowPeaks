@@ -1,0 +1,17 @@
+Package: NarrowPeaks
+Version: 0.99.2
+Date: 2012-02-25
+Type: Package
+Title: Functional Principal Component Analysis to Narrow Down
+        Transcription Factor Binding Site Candidates
+Author: Pedro Madrigal <pm@engineering.com>, with contributions from Pawel Krajewski <pkra@igr.poznan.pl>
+Description: Functional Principal Component Analysis to Narrow Down Transcription Factor Binding Site Candidates. The package processes data in wiggle track format (WIG) commonly produced by several ChIP-seq data analysis tools by applying functional version of principal component analysis (FPCA) over a set of selected candidate enriched regions. This is done in order to shorten the genomic locations accounting for a given proportion of variation among the enrichment-score profiles. It allows the user to discriminate between binding regions in close proximity to each other and to narrow down the length of the putative transcription factor binding sites while preserving the information present in the variability of the dataset and capturing major sources of variation.
+Depends: R (>= 2.10.0), splines
+Maintainer: Pedro Madrigal <pm@engineering.com>
+Imports: GenomicRanges, IRanges, fda, CSAR
+Suggests: rtracklayer, GenomicRanges
+License: Artistic-2.0
+biocViews: Visualization, ChIPseq, Transcription, Genetics
+LazyLoad: yes
+LazyData: yes
+Packaged: 2012-03-01 09:46:49 UTC; pedro
