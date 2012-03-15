@@ -19,7 +19,7 @@ transcription factor binding sites while preserving the information present in
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
-Date: \tab 2012-02-25\cr
+Date: \tab 2012-03-15\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
 }
