@@ -1,5 +1,5 @@
 
-wig2CSARScore <- function(wigfilename,nbchr,chrle, thr=1.0, gap=30) {
+wig2CSARScore <- function(wigfilename,nbchr,chrle) {
 
   Filename<-"a";
   length(Filename)<-nbchr
@@ -20,12 +20,6 @@ wig2CSARScore <- function(wigfilename,nbchr,chrle, thr=1.0, gap=30) {
   returned_data$chrL <- as.double(returned_data$chrL)     #CSAR specif
   returned_data$digits <- as.double(returned_data$digits) #CSAR specif
 
-  #wrapper invoking CSAR::sigWin and converting the result to GenomicRanges::GRanges
-  #Obtain regions of read-enrichment with score values greater than 't', allowing a gap of 'g'
-  enrichedRegions <- sigWin(experiment=returned_data, t=thr, g=gap)
-  #Genomic locations in GenomicRanges class GRanges
-  CSARcandidates <- GRanges(seqnames=Rle(as.character(enrichedRegions$chr)),ranges=(IRanges(enrichedRegions$start, end=enrichedRegions$end)),posPeak=as.integer(enrichedRegions$posPeak), score=as.integer(enrichedRegions$score) )
-  seqlengths(CSARcandidates) <- returned_data$chrL
 
-  return(list(infoscores=returned_data,candidates=CSARcandidates))
+  return(list(infoscores=returned_data))
 }

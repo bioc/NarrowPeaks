@@ -5,17 +5,15 @@
 \description{ Convert data from a wiggle track (WIG) file to CSAR binary 
 format and extract enriched regions. }
 
-\usage{ wig2CSARScore(wigfilename, nbchr, chrle, thr=1.0, gap=30) }
+\usage{ wig2CSARScore(wigfilename, nbchr, chrle) }
 
 \arguments{
   \item{wigfilename}{ WIG file containing the enrichment-score signal of a 
 transcription factor binding experiment. }
   \item{nbchr}{ Number of chromosomes. }
   \item{chrle}{ Vector of lengths of the chromosomes (in base pairs). }
-  \item{thr}{ Minimum score-enrichment level for candidate extraction from 
-the WIG file. Numeric value. }
-  \item{gap}{ Allowed gap between candidate binding regions (in base pairs).}
 }
+
 \details{ The Wiggle format (WIG) is described on the UCSC Genome 
 Bioinformatics web site: \url{http://genome.ucsc.edu/FAQ/FAQformat}. It allows
  the display of continuous value data in the genome browser. Although 
@@ -32,9 +30,6 @@ format in order to locate regions of high variability in the data. }
  names), chrL (Chromosome length (bp).), filenames (Name of the files where 
 the score values are stored.), digits (Score values stored on the files need 
 to be divided by 10^\code{digits}).}
-   \item{candidates}{A \code{GRanges} object (see \pkg{GenomicRanges} package)
- for the enriched regions obtained with the \pkg{CSAR} function \code{sigWin}.
-}
 
 }
 
@@ -64,7 +59,7 @@ writeLines(wigfile_test, con="wigfile.wig")
 ##than 't', allowing a gap of 'g'. Data correspond to enriched regions found up
 ##to 105Kb in the Arabidopsis thaliana genome
 wigScores <- wig2CSARScore(wigfilename="wigfile.wig", nbchr = 1, 
-chrle=c(30427671), thr=1.0, gap=30)
+chrle=c(30427671))
 
 setwd(owd)
 }

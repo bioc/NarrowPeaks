@@ -1,5 +1,5 @@
-Package: NNarrowPeaks
-Version: 0.99.2
+Package: NarrowPeaks
+Version: 0.99.3
 Date: 2012-02-25
 Type: Package
 Title: Functional Principal Component Analysis to Narrow Down
@@ -9,9 +9,9 @@ Description: Functional Principal Component Analysis to Narrow Down Transcriptio
 Depends: R (>= 2.10.0), splines
 Maintainer: Pedro Madrigal <pm@engineering.com>
 Imports: GenomicRanges, IRanges, fda, CSAR
-Suggests: rtracklayer, GenomicRanges
+Suggests: rtracklayer, GenomicRanges, CSAR
 License: Artistic-2.0
 biocViews: Visualization, ChIPseq, Transcription, Genetics
 LazyLoad: yes
 LazyData: yes
-Packaged: 2012-03-01 09:46:49 UTC; pedro
+Packaged: 2012-03-15 09:38:48 UTC; pedro

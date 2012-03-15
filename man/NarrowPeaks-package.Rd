@@ -51,10 +51,13 @@ writeLines(wigfile_test, con="wigfile.wig")
 ##than 't', allowing a gap of 'g'. Data correspond to enriched regions found up
 ##to 105Kb in the Arabidopsis thaliana genome
 wigScores <- wig2CSARScore(wigfilename="wigfile.wig", nbchr = 1, 
-chrle=c(30427671), thr=1.0, gap=30)
+chrle=c(30427671))
+gc(reset=TRUE) 
+library(CSAR)
+candidates <- sigWin(experiment=wigScores$infoscores, t=1.0, g=30)
 
 ##Narrow down ChIPSeq enriched regions by functional PCA
-shortpeaks <- narrowpeaks(inputReg=wigScores$candidates, 
+shortpeaks <- narrowpeaks(inputReg=candidates, 
 scoresInfo=wigScores$infoscores, lmin=0, nbf=150, rpenalty=0, 
 nderiv=0, npcomp=2, pv=80, pmaxscor=3.0, ms=0)
 
@@ -64,7 +67,7 @@ library(GenomicRanges)
 names(elementMetadata(shortpeaks$broadPeaks))[3] <- "score"
 names(elementMetadata(shortpeaks$narrowPeaks))[2] <- "score"
 library(rtracklayer)
-export.bedGraph(object=wigScores$candidates, con="CSAR.bed")
+export.bedGraph(object=candidates, con="CSAR.bed")
 export.bedGraph(object=shortpeaks$broadPeaks, con="broadPeaks.bed")
 export.bedGraph(object=shortpeaks$narrowPeaks, con="narrowpeaks.bed")
 
