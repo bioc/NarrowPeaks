@@ -12,8 +12,8 @@ nderiv= 0, npcomp = 5, pv = 80, pmaxscor = 0.0, ms = 0)
 }
 
 \arguments{
-  \item{inputReg}{ Output \code{candidates} in the function 
-\code{wig2CSARScore}. }
+  \item{inputReg}{ Output of the function \code{sigWin} in package
+ \code{CSAR}. }
   \item{scoresInfo}{ Output \code{infoscores} in the function 
 \code{wig2CSARScore}, or the function \code{ChIPseqScore} after data analysis
  with package \pkg{CSAR}. }
