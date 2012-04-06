@@ -2,11 +2,12 @@
 #include<stdlib.h>
 #include<string.h>
 #include<R_ext/Print.h>        /* Rprintf */
+#include<R_ext/Memory.h>       /* R_alloc */
 #define NB_Chr_MAX 33
 
 
-int wig2CSARScore(char** file_Name,int* nbChr, int* chrL,char** filenames,char** chr){
-	
+int wig2CSARScore(const char* file_Name,int* nbChr, int* chrL,char** filenames,char** chr){
+
 	FILE* file;
 	FILE* new_file;
 	int i,j,k,m,n,counter,ret;
@@ -20,37 +21,37 @@ int wig2CSARScore(char** file_Name,int* nbChr, int* chrL,char** filenames,char**
 	char start[NB_Chr_MAX][25];
 	char step[NB_Chr_MAX][25];
 	char span[NB_Chr_MAX][20];
-	
+
 	if (*nbChr>NB_Chr_MAX)
-	{	
+	{
 		Rprintf("ERROR [nbChr=%d]: FUNCTION WORKS FOR NB CHR<=33 YOU CAN CHANGE WITH THE SOURCE\n",*nbChr);
 		return(-1);
 	}
 
-	file = fopen(*file_Name,"r");
+	file = fopen(file_Name,"r");
 	if (file==NULL)
 	{
 		Rprintf("ERROR : OPEN FILE\n");
 		return(-2);
 	}
 
-	j=0;		
+	j=0;
 	i=0;
 	m=0;
-	
-	Rprintf("READING [ %s ] : ",*file_Name);	
+
+	Rprintf("READING [ %s ] : ", file_Name);
 	while (feof(file)!=1)
 	{
 		i++;
 		ret = fscanf(file," %s ",str);
 		if (ret == -1) { break; }
-		
+
 		if (!strcmp(str,"variableStep"))
 		{
 			tab[j]=i;
 			tab_type[j]=0;
 			i=i+2;
-			ret = fscanf(file," %s ",str); 
+			ret = fscanf(file," %s ",str);
 			if (ret == -1) { break; }
 			k=0;
 			while(str[k+5]!='\0')
@@ -77,7 +78,7 @@ int wig2CSARScore(char** file_Name,int* nbChr, int* chrL,char** filenames,char**
 			}
 			j++;
 		}
-		
+
 		if (!strcmp(str,"fixedStep"))
 		{
 			tab[j]=i;
@@ -134,40 +135,42 @@ int wig2CSARScore(char** file_Name,int* nbChr, int* chrL,char** filenames,char**
 		{
 			if(tab_type[i]==0){
 				Rprintf("\n\t | %s | %s | %d |",chr_name[i],span[i],chrL[i]);
-			}else{	
-				Rprintf("\n\t | %s | %s | %s | %s | %d |",chr_name[i],start[i],step[i],span[i],chrL[i]);		
+			}else{
+				Rprintf("\n\t | %s | %s | %s | %s | %d |",chr_name[i],start[i],step[i],span[i],chrL[i]);
 			}
 		}
-		return(-3);	
+		return(-3);
 	}
 	Rprintf("done\n  -NB_Chr = %d\n  -Summary :",j);
 	for (i=0;i<j;i++)
 	{
+        chr[i] = (char *) R_alloc(strlen(chr_name[i] + 1), sizeof(char));
 		strcpy(chr[i],chr_name[i]);
 		if(tab_type[i]==0){
 			Rprintf("\n\t | %s | %s | %d |",chr_name[i],span[i],chrL[i]);
 		}else{
-			Rprintf("\n\t | %s | %s | %s | %s | %d |",chr_name[i],start[i],step[i],span[i],chrL[i]);			
+			Rprintf("\n\t | %s | %s | %s | %s | %d |",chr_name[i],start[i],step[i],span[i],chrL[i]);
 		}
 	}
 	Rprintf("\n");
 	fclose(file);
-	
+
 	Rprintf("CREATING BINARY FILES [CSAR Bioconductor pkg format] :\n");
-		
-	file = fopen(*file_Name,"r");
+
+	file = fopen(file_Name,"r");
 	if (file==NULL)
 	{
 		Rprintf("ERROR : OPEN FILE\n");
 		return(-1);
-	}			
+	}
 	n=1;
-	
+
 	for (m=0;m<j;m++)
 	{
 		if(tab_type[m]==0){
-			sprintf(str,"%s_ChIPseq.CSARScore",chr_name[m]);		
-			strcpy(filenames[m],str);
+			sprintf(str,"%s_ChIPseq.CSARScore",chr_name[m]);
+			filenames[m] = (char *) R_alloc(strlen(str) + 1, sizeof(char));
+			strcpy(filenames[m], str);
 			new_file=fopen(str,"wb");
 			if (new_file==NULL)
 			{
@@ -277,14 +280,14 @@ int wig2CSARScore(char** file_Name,int* nbChr, int* chrL,char** filenames,char**
 		}
 
 		if(tab_type[m]==1){
-			Rprintf(str,"%s_ChIPseq.CSARScore",chr_name[m]);		
+			Rprintf(str,"%s_ChIPseq.CSARScore",chr_name[m]);
 			new_file=fopen(str,"wb");
 			if (new_file==NULL)
 			{
 				Rprintf("ERROR : Unable to open file!\n");
 				return(-42);
 			}
-			
+
 			while (n<=tab[m]+3)
 			{
 				ret = fscanf(file," %s ",str);
@@ -378,7 +381,7 @@ int wig2CSARScore(char** file_Name,int* nbChr, int* chrL,char** filenames,char**
 						fwrite(&z, sizeof(int), 1, new_file);
 					}
 					start_c=start_c+step_c;
-					n=n+1;				
+					n=n+1;
 				}
 				z=0;
 				for(i=i;i<=chrL[m];i++)
@@ -390,6 +393,7 @@ int wig2CSARScore(char** file_Name,int* nbChr, int* chrL,char** filenames,char**
 		Rprintf(" OK\n");
 		}
 	}
-	fclose(file);	
+	fclose(file);
 return 0;
 }
+
