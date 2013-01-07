@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{NarrowPeaks Vignette}
+%\VignetteIndexEntry{NarrowPeaks Vignette I: Introduction to NarrowPeaks}
 %\VignetteDepends{NarrowPeaks}
 %\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics}
 %\VignettePackage{NarrowPeaks}
@@ -21,11 +21,11 @@
 \begin{document}
 %
 \title{An Introduction to the {\NarrowPeaks} Package: \\ Narrowing Down Transcription Factor Binding Site Candidates from Functional Data}
-\date{January, 2012}
+\date{January, 2013}
 \author{Pedro Madrigal\footnote{pm@engineering.com}}
 \maketitle
 \begin{center}
-Laboratory of Biometry, Institute of Plant Genetics\\Polish Academy of Sciences\\Poznan, Poland
+Laboratory of Biometry and Bioinformatics, Institute of Plant Genetics\\Polish Academy of Sciences\\Poznan, Poland
 \end{center}
 
 <<setup, echo=FALSE, results=hide>>=

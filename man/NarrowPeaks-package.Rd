@@ -3,8 +3,8 @@
 \alias{NarrowPeaks}
 \docType{package}
 
-\title{ Functional Principal Component Analysis to Narrow Down Transcription 
-Factor Binding Site Candidates }
+\title{ Analysis of variation in ChIP-seq using functional PCA } 
+
 \description{ The package processes data in wiggle track format (WIG) commonly
  produced by several ChIP-seq data analysis tools by applying functional 
 version of principal component analysis (FPCA) over a set of selected candidate
