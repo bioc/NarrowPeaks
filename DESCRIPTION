@@ -1,6 +1,6 @@
 Package: NarrowPeaks
-Version: 1.3.0
-Date: 2012-04-05
+Version: 1.3.1
+Date: 2013-01-07
 Type: Package
 Title: Analysis of variation in ChIP-seq using functional PCA
 
