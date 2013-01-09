@@ -3,7 +3,7 @@
 \alias{NarrowPeaks}
 \docType{package}
 
-\title{ Analysis of variation in ChIP-seq using functional PCA } 
+\title{ Analysis of Variation in ChIP-seq using Functional PCA } 
 
 \description{ The package processes data in wiggle track format (WIG) commonly
  produced by several ChIP-seq data analysis tools by applying functional 
@@ -19,7 +19,7 @@ transcription factor binding sites while preserving the information present in
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
 Version: \tab 1.1\cr
-Date: \tab 2012-03-15\cr
+Date: \tab 2013-01-09\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
 }
@@ -33,8 +33,7 @@ Maintainer: Pedro Madrigal \email{pm@engineering.com}
 
 }
 \references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 
-package to narrow down transcription factor binding site candidates using 
-functional PCA.}
+package for quantitative analysis of variation in ChIP-seq datasets.}
 
 \examples{
 owd <- setwd(tempdir())

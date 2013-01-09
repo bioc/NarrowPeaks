@@ -86,8 +86,7 @@ equal to argument \code{pv}). }
 }
 
 \references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 
-package to narrow down transcription factor binding site candidates using 
-functional PCA. \cr
+package for quantitative analysis of variation in ChIP-seq datasets. \cr
 Ramsay, J.O. and Silverman, B.W. (2005) Functional Data Analysis. New York:
  Springer. \cr
 Ferraty, F. and Vieu, P. (2006) Nonparametric Functional Data Analysis. 

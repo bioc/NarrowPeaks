@@ -1,8 +1,9 @@
 Package: NarrowPeaks
 Version: 1.3.1
-Date: 2013-01-07
+Date: 2013-01-09
 Type: Package
-Title: Analysis of variation in ChIP-seq using functional PCA
+Title: Analysis of Variation in ChIP-seq
+        using Functional PCA
 Author: Pedro Madrigal <pm@engineering.com>, with contributions from Pawel Krajewski <pkra@igr.poznan.pl>
 Description: The package processes data in wiggle track format (WIG) commonly produced by several ChIP-seq data analysis tools by applying functional version of principal component analysis (FPCA) over a set of selected candidate enriched regions. This is done in order to shorten the genomic locations accounting for a given proportion of variation among the enrichment-score profiles. It allows the user to discriminate between binding regions in close proximity to each other and to narrow down the length of the putative transcription factor binding sites while preserving the information present in the variability of the dataset and capturing major sources of variation.
 Depends: R (>= 2.10.0), splines

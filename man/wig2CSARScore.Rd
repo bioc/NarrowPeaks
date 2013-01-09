@@ -34,8 +34,7 @@ to be divided by 10^\code{digits}).}
 }
 
 \references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 
-package to narrow down transcription factor binding site candidates using 
-functional PCA. \cr
+package for quantitative analysis of variation in ChIP-seq datasets. \cr
 Muino, J. et al. (2011) ChIP-seq analysis in R (CSAR): An R package for the
  statistical detection of protein-bound genomic regions. Plant Methods 7:11.
 }
