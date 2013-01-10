@@ -19,13 +19,13 @@
 \usepackage{natbib}
 
 \begin{document}
-%
-\title{{\narrowpeaksDiff}: Analysis of differential variation across ChIP-seq experiments}
+
+\title{narrowpeaksDiff: Analysis of differential variation across ChIP-seq experiments}
 \date{January, 2013}
 \author{Pedro Madrigal\footnote{pm@engineering.com}}
 \maketitle
 \begin{center}
-Laboratory of Biometry and Bioinformatics, Institute of Plant Genetics\\Polish Academy of Sciences\\Poznan, Poland
+Department of Biometry and Bioinformatics, Institute of Plant Genetics\\Polish Academy of Sciences\\Poznan, Poland
 \end{center}
 
 <<setup, echo=FALSE, results=hide>>=
