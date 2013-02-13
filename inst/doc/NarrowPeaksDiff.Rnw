@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{NarrowPeaks Vignette II: Analysis of differential variation across ChIP-seq experiments}
+%\VignetteIndexEntry{NarrowPeaks Vignette II. Inter-sample variability: Analysis of variation in differential binding across ChIP-seq samples.}
 %\VignetteDepends{NarrowPeaks}
 %\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics}
 %\VignettePackage{NarrowPeaks}

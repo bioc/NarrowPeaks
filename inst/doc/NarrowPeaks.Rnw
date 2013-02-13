@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{NarrowPeaks Vignette I: Introduction to NarrowPeaks}
+%\VignetteIndexEntry{NarrowPeaks Vignette I. Intra-sample variability: Splitting and narrowing down ChIP-seq peaks in a single experiment.}
 %\VignetteDepends{NarrowPeaks}
 %\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics}
 %\VignettePackage{NarrowPeaks}

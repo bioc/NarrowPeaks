@@ -1,0 +1,9 @@
+1.3.2:	 
+	- The functionality of NarrowPeaks has been extended to multiple ChIP-seq sample
+	comparison using FPCA, by implementing the function "narrowpeaksDiff.R".
+	- Vignette no. 2 has been added to the package. 
+	- Package Title modified from "Functional Principal Component Analysis
+	to Narrow Down Transcription Factor Binding Site Candidates" to 
+	"Analysis of Variation in ChIP-seq using Functional PCA Statistics"
+
+
