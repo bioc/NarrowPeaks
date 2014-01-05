@@ -18,8 +18,8 @@ transcription factor binding sites while preserving the information present in
 \tabular{ll}{
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
-Version: \tab 1.1\cr
-Date: \tab 2013-01-09\cr
+Version: \tab 1.7.2\cr
+Date: \tab 2013-01-14\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
 }
@@ -29,7 +29,7 @@ LazyLoad: \tab yes\cr
 Pedro Madrigal, with contributions from Pawel Krajewski 
 \email{pkra@igr.poznan.pl}
 
-Maintainer: Pedro Madrigal \email{pm@engineering.com}
+Maintainer: Pedro Madrigal \email{pm12@sanger.ac.uk}
 
 }
 \references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 

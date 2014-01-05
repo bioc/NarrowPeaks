@@ -1,32 +1,29 @@
-%\VignetteIndexEntry{NarrowPeaks Vignette II. Inter-sample variability: Analysis of variation in differential binding across ChIP-seq samples.}
+%\VignetteIndexEntry{NarrowPeaks Vignette II. Analysis of Variation for Differential Binding across ChIP-seq Samples.}
 %\VignetteDepends{NarrowPeaks}
-%\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics}
+%\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics,Sequencing,HighThroughputSequencing}
 %\VignettePackage{NarrowPeaks}
 \documentclass{article}
 
-\newcommand{\Rfunction}[1]{{\texttt{#1}}}
-\newcommand{\Rmethod}[1]{{\texttt{#1}}}
-\newcommand{\Rcode}[1]{{\texttt{#1}}}
-\newcommand{\Robject}[1]{{\texttt{#1}}}
-\newcommand{\Rpackage}[1]{{\textsf{#1}}}
-\newcommand{\Rclass}[1]{{\textit{#1}}}
-\newcommand{\NarrowPeaks}{\Rpackage{NarrowPeaks}}
-\newcommand{\CSAR}{\Rpackage{CSAR}}
-
-
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{natbib}
+<<style, eval=TRUE, echo=FALSE, results=tex>>=
+BiocStyle::latex()
+@
 
 \begin{document}
 
-\title{narrowpeaksDiff: Analysis of differential variation across ChIP-seq experiments}
-\date{January, 2013}
-\author{Pedro Madrigal\footnote{pm@engineering.com}}
+\title{\Rfunction{bigwigDiff}: Analysis of variation in differential binding across ChIP-seq samples}
+\date{Created: January, 2013. Last modified: September, 2013. Compiled: \today}
+\author{Pedro Madrigal}
+
 \maketitle
-\begin{center}
-Department of Biometry and Bioinformatics, Institute of Plant Genetics\\Polish Academy of Sciences\\Poznan, Poland
-\end{center}
+
+\begin{small}
+\begin{flushleft}
+$^{1}$ Department of Biometry and Bioinformatics, Institute of Plant Genetics, Polish Academy of Sciences, Poznan, Poland \\
+$^{2}$ \underline{Present address}: Wellcome Trust Sanger Institute, Hinxton, Cambridge, UK
+\end{flushleft}
+\end{small}
+
+\tableofcontents
 
 <<setup, echo=FALSE, results=hide>>=
 options(width=60)
@@ -34,7 +31,12 @@ options(continue=" ")
 options(prompt="R> ")
 @ 
 
-\section{Rationale}
+\section{Goal of this Vignette}
+%I will show how to meaningfully split and narrow down the length a set of ChIP-seq peaks in a WIG file by means of PCA functional data analysis. 
+
+
+
+\section{Introduction}
 Under development.
 
 
@@ -43,9 +45,14 @@ Under development.
 
 This document was written using:
 
+\begin{small}
 <<sessionInfo>>=
 sessionInfo()
 @ 
+\end{small}
+
+\section{Acknowledgements}
+This work was supported by the EU Marie Curie Initial Training Network SYSFLO (agreement number 237909).
 
 \end{document}
 

@@ -39,7 +39,7 @@ Muino, J. et al. (2011) ChIP-seq analysis in R (CSAR): An R package for the
  statistical detection of protein-bound genomic regions. Plant Methods 7:11.
 }
 
-\author{ Pedro Madrigal, \email{pm@engineering.com}}
+\author{ Pedro Madrigal, \email{pm12@sanger.ac.uk}}
 
 \seealso{ \code{\link{narrowpeaks}}, \code{\link{NarrowPeaks-package}} }
 

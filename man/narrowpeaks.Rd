@@ -93,7 +93,7 @@ Ferraty, F. and Vieu, P. (2006) Nonparametric Functional Data Analysis.
 New York: Springer. 
 }
 
-\author{ Pedro Madrigal, \email{pm@engineering.com} }
+\author{ Pedro Madrigal, \email{pm12@sanger.ac.uk} }
 
 \seealso{ \code{\link{wig2CSARScore}}, \code{\link{NarrowPeaks-package}} }
 
