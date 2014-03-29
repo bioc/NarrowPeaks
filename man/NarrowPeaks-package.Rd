@@ -5,21 +5,24 @@
 
 \title{ Analysis of Variation in ChIP-seq using Functional PCA } 
 
-\description{ The package processes data in wiggle track format (WIG) commonly
- produced by several ChIP-seq data analysis tools by applying functional 
-version of principal component analysis (FPCA) over a set of selected candidate
- enriched regions. This is done in order to shorten the genomic locations 
-accounting for a given proportion of variation among the enrichment-score
- profiles. It allows the user to discriminate between binding regions in close
- proximity to each other and to narrow down the length of the putative 
-transcription factor binding sites while preserving the information present in
- the variability of the dataset and capturing major sources of variation. }
+\description{ The package applies a functional version of principal component 
+analysis (FPCA) to: (1) Process data in wiggle track format (WIG) commonly produced 
+by ChIP-seq peak callers by applying FPCA over a set of read-enriched regions 
+(ChIP-seq peaks). This is done in order to shorten the genomic locations accounting 
+for a given proportion of variation among the enrichment-score profiles. The function
+ 'narrowpeaks' allows splitting and trimming binding sites in close proximity to each 
+ other, narrowing down the length of the putative transcription factor binding sites 
+ while preserving the information present in the variability of the dataset and capturing 
+ major sources of variation. (2) Analyse differential variation between multiple ChIP-seq 
+ samples with replicates. The function 'bigwigdiff' quantifies differences between the 
+ shapes, and uses Hotelling's T2 tests on the functional principal component scores to 
+ identify significant differences between conditions. }
 \details{
 \tabular{ll}{
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
-Version: \tab 1.7.2\cr
-Date: \tab 2013-01-14\cr
+Version: \tab 1.7.5\cr
+Date: \tab 2014-02-14\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
 }
@@ -29,11 +32,12 @@ LazyLoad: \tab yes\cr
 Pedro Madrigal, with contributions from Pawel Krajewski 
 \email{pkra@igr.poznan.pl}
 
-Maintainer: Pedro Madrigal \email{pm12@sanger.ac.uk}
+Maintainer: Pedro Madrigal \email{pm59@cam.ac.uk}
 
 }
-\references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 
-package for quantitative analysis of variation in ChIP-seq datasets.}
+\references{ Madrigal, P. et al. (in preparation) NarrowPeaks: an R/Bioconductor 
+package for splitting, trimming and differential analysis of ChIP-seq peaks using
+ functional PCA.}
 
 \examples{
 owd <- setwd(tempdir())

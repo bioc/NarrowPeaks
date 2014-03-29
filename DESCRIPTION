@@ -1,31 +1,32 @@
 Package: NarrowPeaks
-Version: 1.7.4
-Date: 2013-02-14
+Version: 1.7.5
+Date: 2014-02-14
 Type: Package
 Title: Analysis of Variation in ChIP-seq using Functional PCA
-Author: Pedro Madrigal <pm12@sanger.ac.uk>, with contributions from
+Author: Pedro Madrigal <pm59@cam.ac.uk>, with contributions from
         Pawel Krajewski <pkra@igr.poznan.pl>
-Description: The double aim of the package is to apply a functional
+Description: The package applies a functional
         version of principal component analysis (FPCA) to: (1) Process
         data in wiggle track format (WIG) commonly produced by ChIP-seq
-        peak finders by applying FPCA over a set of selected candidate
-        enriched regions. This is done in order to shorten the genomic
+        peak callers by applying FPCA over a set of read-enriched
+    	regions (ChIP-seq peaks). This is done in order to shorten the genomic
         locations accounting for a given proportion of variation among
         the enrichment-score profiles. The function 'narrowpeaks'
-        allows the user to discriminate between binding regions in
-        close proximity to each other and to narrow down the length of
+        allows splitting and trimming binding sites in
+        close proximity to each other, narrowing down the length of
         the putative transcription factor binding sites while
         preserving the information present in the variability of the
-        dataset and capturing major sources of variation. (2) Analyze
-        differential variation when multiple ChIP-seq samples need to
-        compared. The function 'bigwigdiff' quantifies differences
-        between the tag-enrichment, and uses Hotelling's T2 tests on
-        the FPC scores to identify significant differences between
-        conditions.
+        dataset and capturing major sources of variation. (2) Analyse
+        differential variation between multiple ChIP-seq samples with 
+	replicates. The function 'bigwigdiff' quantifies differences
+        between the shapes, and uses Hotelling's T2 tests on
+        the functional principal component scores to identify 
+	significant differences between conditions.
 Depends: R (>= 2.10.0), splines
-Maintainer: Pedro Madrigal <pm12@sanger.ac.uk>
+Maintainer: Pedro Madrigal <pmb59@cam.ac.uk>
 Imports: GenomicRanges, IRanges, fda, CSAR
 Suggests: rtracklayer, GenomicRanges, CSAR, BiocStyle
 License: Artistic-2.0
 biocViews: Visualization, ChIPSeq, Transcription, Genetics, Sequencing,
         Sequencing
+

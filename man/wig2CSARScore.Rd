@@ -33,13 +33,14 @@ to be divided by 10^\code{digits}).}
 
 }
 
-\references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 
-package for quantitative analysis of variation in ChIP-seq datasets. \cr
+\references{ Madrigal, P. et al. (in preparation) NarrowPeaks: an R/Bioconductor 
+package for splitting, trimming and differential analysis of ChIP-seq peaks 
+using functional PCA. \cr
 Muino, J. et al. (2011) ChIP-seq analysis in R (CSAR): An R package for the
  statistical detection of protein-bound genomic regions. Plant Methods 7:11.
 }
 
-\author{ Pedro Madrigal, \email{pm12@sanger.ac.uk}}
+\author{ Pedro Madrigal, \email{pm59@cam.ac.uk}}
 
 \seealso{ \code{\link{narrowpeaks}}, \code{\link{NarrowPeaks-package}} }
 

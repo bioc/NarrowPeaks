@@ -85,15 +85,16 @@ equal to argument \code{pv}). }
   
 }
 
-\references{ Madrigal, P. et al. (submitted) NarrowPeaks: an R/Bioconductor 
-package for quantitative analysis of variation in ChIP-seq datasets. \cr
+\references{ Madrigal, P., Krajewski, P.(in preparation) NarrowPeaks: an 
+R/Bioconductor package for splitting, trimming and differential analysis of 
+ChIP-seq peaks using functional PCA. \cr
 Ramsay, J.O. and Silverman, B.W. (2005) Functional Data Analysis. New York:
  Springer. \cr
 Ferraty, F. and Vieu, P. (2006) Nonparametric Functional Data Analysis. 
 New York: Springer. 
 }
 
-\author{ Pedro Madrigal, \email{pm12@sanger.ac.uk} }
+\author{ Pedro Madrigal, \email{pm59@cam.ac.uk} }
 
 \seealso{ \code{\link{wig2CSARScore}}, \code{\link{NarrowPeaks-package}} }
 

@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{NarrowPeaks Vignette I. Splitting and Narrowing Down ChIP-seq Peaks.}
+%\VignetteIndexEntry{NarrowPeaks Vignette. Splitting, trimming and differential analysis of ChIP-seq peaks}
 %\VignetteDepends{}
 %\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics,Sequencing,HighThroughputSequencing}
 %\VignettePackage{NarrowPeaks}
@@ -14,8 +14,7 @@ BiocStyle::latex(use.unsrturl=FALSE)
 
 \begin{document}
 
-\bioctitle[An Introduction to the \Biocpkg{NarrowPeaks} Package]%
-  {An Introduction to the \Biocpkg{NarrowPeaks} Package:\\ Narrowing Down Transcription Factor Binding Site Candidates from Functional Data}
+\title{An Introduction to the \Biocpkg{NarrowPeaks} Package:\\ Narrowing Down Transcription Factor Binding Site Candidates from Functional Data}
 \date{Created: January, 2013. Last modified: September, 2013. Compiled: \today}
 \author{Pedro Madrigal}
 
@@ -25,7 +24,8 @@ BiocStyle::latex(use.unsrturl=FALSE)
 \begin{small}
 \begin{flushleft}
 $^{1}$ Department of Biometry and Bioinformatics, Institute of Plant Genetics, Polish Academy of Sciences, Poznan, Poland \\
-$^{2}$ \underline{Present address}: Wellcome Trust Sanger Institute, Hinxton, Cambridge, UK
+$^{2}$ \underline{Present address}: Wellcome Trust Sanger Institute, Hinxton, Cambridge, UK \\
+$^{3}$ \underline{Present address}: University of Cambridge, Anne McLaren Laboratory for Regenerative Medicine, Cambridge, UK
 \end{flushleft}
 \end{small}
 
@@ -40,17 +40,15 @@ options(prompt="R> ")
 @ 
 
 \section{Goal of this Vignette}
-I will show how to meaningfully split and narrow down the lengths of ChIP-seq peaks in a WIG file by means of functional PCA. 
+I will show how to split and trim ChIP-seq peaks in a WIG file by means of functional PCA. 
 
 \section{Introduction}
-Comprehensive ChIP-Seq data analyses are carried out by the coordinated interplay of several software tools \cite{Bailey2013}. 
-State-of-the-art bioinformatic algorithms so-called peak finders (e.g., \cite{Laajala2009},\cite{Pepke2009},\cite{Wilbanks2010}), are used to detect transcription factor binding sites (TFBSs) in high-throughput chromatin immunoprecipitation followed by sequencing (ChIP-seq). The data analysis is usually based on peak-search criteria of the local maxima over enriched candidate regions. For purposes of computation several assumptions are made regarding the distribution of sample and control reads \cite{Bailey2013}. \\
+Comprehensive ChIP-seq data analysis is carried out by many software tools \cite{Bailey2013}. 
+State-of-the-art bioinformatic algorithms so-called peak finders (e.g., \cite{Laajala2009},\cite{Pepke2009},\cite{Wilbanks2010}), are used to detect transcription factor binding sites (TFBSs) in high-throughput chromatin immunoprecipitation followed by sequencing (ChIP-seq). Data analysis is usually based on peak-search criteria of the local maxima over the read-enriched candidate regions. For computation purposes, several assumptions are made regarding the distribution of sample and control reads \cite{Bailey2013}. Although most sites reported by peak finders could be narrowed down to 100-400bp using merely visual inspection, this reduction is not typically reflected by the regions provided by current methods, therefore degrading the resolution \cite{Rye2011}. It is widely accepted that the subdivision of long regions into distinct subpeaks can further help recognizing \emph{bona fide} TFBSs that were merged into a wide area of signal enrichment (broad peak). \\
 
-Although most sites reported by peak finders could be narrowed down to 100-400bp using merely visual inspection, this reduction is not typically reflected by the regions provided by current methods, therefore degrading the resolution \cite{Rye2011}. It is widely accepted that the subdivision of long regions into distinct subpeaks can further help recognizing individual \emph{true} TFBSs that were merged into a wide area of signal enrichment (broad peak). \\
+We present here the R package \Biocpkg{NarrowPeaks} \cite{MadrigalSubmitted} able process data in WIG format (one of the most popular standard formats for visualisation of next-generation sequencing data is the \href{http://genome.ucsc.edu/FAQ/FAQformat}{wiggle track (WIG), and its indexed version bigWig}) data, and analyze it based on the theory of Functional Principal Component Analysis (FPCA) \cite{Ramsay2005}. Instructions to create WIG/bigWig coverage tracks can be found in \file{Text S1} in \cite{Bailey2013}  \\
 
-We present here the R package \Biocpkg{NarrowPeaks} \cite{MadrigalSubmitted} able process WIG format (one of the most popular formats for ChIP-seq data visualization is the \href{http://genome.ucsc.edu/FAQ/FAQformat}{wiggle track (WIG), and its indexed version bigWig}) data, and analyze it based on the theory of Functional Principal Component Analysis (FPCA) \cite{Ramsay2005}. Instructions to create WIG/bigWig coverage tracks can be found in \file{Text S1} in \cite{Bailey2013}  \\
-
-The aim of this novel approach is to extract the most significant ChIP-seq enriched regions according to their primary modes of variation in the binding score profiles. It allows the user of this package to discriminate between binding regions in close proximity and shorten the length of the transcription factor binding sites preserving the information present in the the dataset at a desired level of variance.
+The aim of this novel approach is to extract the most significant region of ChIP-seq peaks according to their primary modes of variation in the binding score profiles. It allows the user of this package to discriminate between binding regions in close proximity and shorten the length of the transcription factor binding sites preserving the information present in the the dataset at a user-defined level of variance. Without the trimming mode, it also serves to describe peak shapes using a set of statistics (FPCA scores) directly liked to the the principal components of the dataset. It facilitates the posterior clustering of the peaks by their peak-shape.
 
 
 
@@ -58,10 +56,10 @@ The aim of this novel approach is to extract the most significant ChIP-seq enric
 
 The functional version of PCA establishes a method for estimating orthogonal basis functions (principal components or \emph{eigenfunctions}) from functional data \cite{Ramsay2005}, in order to capture as much of the variation as possible in as few components as possible. We can highlight the genomic locations contributing to maximum variation (measured by an aproximation of the variance-covariance function) from a list of peaks of a ChIP-seq experiment. \\
 
-The proposed algorithm converts a continuous signal of enrichment (from a WIG file into CSAR binary format), and extracts signal profiles of candidate 
+The algorithm converts a continuous signal of enrichment (from a WIG file into CSAR binary format), and extracts signal profiles of candidate 
 TFBSs. 
-Afterwards, it characterizes the binding signals via spline basis functions expansion.
-Finally, functional PCA is performed in order to measure the variation of the ChIP-seq signal profiles under study. The output consists of a score-ranked list of sites according to their contribution to the total variation, which is accounted for by the trimmed (narrowed) principal components (estimated from the data).
+Afterwards, it characterizes the binding signals via B-spline basis functions expansion.
+Finally, functional PCA is performed in order to measure the variation of the ChIP-seq signal profiles under study. The output consists of a score-ranked list of sites according to their contribution to the total variation, which is accounted for by the trimmed (narrowed) principal components (estimated from the data). A detailed description of the method is available in \cite{MadrigalSubmitted}.
 
 
 \section{Example}
@@ -85,7 +83,7 @@ print(wigScores$infoscores$filenames)
 
 
 Next, the candidate binding site regions are extracted using the Bioconductor package \Biocpkg{CSAR} \cite{Muino2011}. CSAR predictions are contiguous genomic regions separated by a maximum allowed of \Robject{g} base pairs, and score enrichment values greater than \Robject{t}. Candidate regions are stored in a \Robject{GRanges} object (see Bioconductor package \Biocpkg{GenomicRanges}). 
-\textbf{Alternatively, ChIP-seq peaks obtained using other peak-callers can be provided building an analogous \Robject{GRanges} object}.
+\textbf{Alternatively, ChIP-seq peaks obtained using other peak-callers can be provided building an analogous \Robject{GRanges} object}. In this case, the metadata 'score' must represent a numeric value directly proportional to the confidence of the peak ($p$-value) or the strength of the binding (fold-change).
 
 \begin{small}
 <<extract candidate regions of enrichment in GRanges object>>=
@@ -97,7 +95,7 @@ head(candidates)
 
 If \Biocpkg{CSAR} \cite{Muino2011} is used first to analyze ChIP-seq data, from its results we can obtain the false discovery rate (FDR) for a given threshold. For example, for the complete experiment described in \cite{Kaufmann2010}, \Robject{t = 10.81} corresponds to FDR = 0.01 and \Robject{t = 6.78} corresponds to FDR = 0.1. \\
 
-Now we want to narrow down the candidate sites with the function \Rfunction{narrowpeaks} to obtain shortened peaks , representing each candidate signal as a linear combination of \Robject{nbf} $B$-spline basis functions with no derivative penalization \cite{Ramsay2005} (\textbf{Figure 1}). We can specify the amount of miminum variance \Robject{pv} we want to describe in form of \Robject{npcomp} principal components, and establish a cutoff \Robject{pmaxscor} for trimming of scoring functions of the candidate sites \cite{MadrigalSubmitted}.
+Now we want to narrow down the candidate sites with the function \Rfunction{narrowpeaks} to obtain shortened peaks , representing each candidate signal as a linear combination of \Robject{nbf} $B$-spline basis functions with no derivative penalization \cite{Ramsay2005}. We can specify the amount of miminum variance \Robject{pv} we want to describe in form of \Robject{npcomp} principal components, and establish a cutoff \Robject{pmaxscor} for trimming of scoring functions of the candidate sites \cite{MadrigalSubmitted}.
 
 We will run the function for three different values of the cutoff: \Robject{pmaxscor = 0} (no cutoff), \Robject{pmaxscor = 3} (cutoff is at 3\% level of the maximum value relative to the scoring PCA functions) and  \Robject{pmaxscor = 100} (cutoff is at the maximum value relative to the scoring PCA functions).
 
@@ -122,7 +120,6 @@ head(shortpeaksP100$narrowPeaks)
 
 
 As we can see, there is no difference between \Robject{broadPeaks} and \Robject{narrowPeaks} for \Robject{pmaxscor = 0}, whereas for \Robject{pmaxscor = 100} just one punctual source of variation is reported. 
-\textbf{Figure 2} shows the location narrowed regions for candidate peak 1 in the test data. 
 The number of components (\Robject{reqcomp}) required, as well as the variance (\Robject{pvar}) achieved, are the same for all three cases (\Robject{pmaxscor} of 0, 3 and 100). 
 
 \begin{small}
@@ -174,29 +171,29 @@ export.bedGraph(object=shortpeaksP3$narrowPeaks, con="narrowpeaks.bed")
 
 \newpage
 
-\section{Figures}
-
-<<figureexample, fig=TRUE, include=TRUE, width=3.2, height=3.6, echo=FALSE, results=hide>>=
-library(fda)
-plot.fd(shortpeaksP0$fdaprofiles,xlab="nucleotides",cex.lab=0.5,cex.axis=0.5,cex.main=0.5, ylab="Read-enrichment profiles of candidate peaks", main="Figure 1")
-@
-
-%\newpage
-%<<figureexample2, fig=TRUE, include=TRUE, width=2.2, height=2.6>>=
+%\section{Figures}
+%
+%<<figureexample, fig=TRUE, include=TRUE, width=3.2, height=3.6, echo=FALSE, results=hide>>=
 %library(fda)
-%plot.fd(shortpeaksP0$fdaprofiles[1],cex.lab=0.5,cex.axis=0.5, xlab="Chr1", ylab="Read-enrichment profile of the candidate peak #1", main="Figure 2")
+%plot.fd(shortpeaksP0$fdaprofiles,xlab="nucleotides",cex.lab=0.5,cex.axis=0.5,cex.main=0.5, ylab="Read-enrichment profiles of candidate peaks", main="Figure 1")
 %@
-
-\newpage
-<<figureexample3, fig=TRUE, include=TRUE, width=3.2, height=3.6, echo=FALSE, results=hide>>=
-library(fda)
-dd=as.data.frame(candidates)
-y=eval.fd(evalarg=1:(max(dd[,4])-1), fdobj=shortpeaksP0$fdaprofiles[1])
-cent=round((19142+18996)/2)
-plot((cent-round(max(dd[,4])/2)):round(cent+(max(dd[,4])/2)-1),y, type='l',cex.lab=0.5,cex.axis=0.5,cex.main=0.5,  xlab="Chr1", ylab="Read-enrichment profile of the candidate peak #1", main="Figure 2")
-abline(v=18996, col="red")
-abline(v=19142, col="red")
-@
+%
+%%\newpage
+%%<<figureexample2, fig=TRUE, include=TRUE, width=2.2, height=2.6>>=
+%%library(fda)
+%%plot.fd(shortpeaksP0$fdaprofiles[1],cex.lab=0.5,cex.axis=0.5, xlab="Chr1", ylab="Read-enrichment profile of the candidate peak #1", main="Figure 2")
+%%@
+%
+%\newpage
+%<<figureexample3, fig=TRUE, include=TRUE, width=3.2, height=3.6, echo=FALSE, results=hide>>=
+%library(fda)
+%dd=as.data.frame(candidates)
+%y=eval.fd(evalarg=1:(max(dd[,4])-1), fdobj=shortpeaksP0$fdaprofiles[1])
+%cent=round((19142+18996)/2)
+%plot((cent-round(max(dd[,4])/2)):round(cent+(max(dd[,4])/2)-1),y, type='l',cex.lab=0.5,cex.axis=0.5,cex.main=0.5,  xlab="Chr1", ylab="Read-enrichment profile of the candidate peak #1", main="Figure 2")
+%abline(v=18996, col="red")
+%abline(v=19142, col="red")
+%@
 
 
 \section{Details}
