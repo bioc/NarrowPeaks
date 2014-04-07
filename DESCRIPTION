@@ -1,6 +1,6 @@
 Package: NarrowPeaks
-Version: 1.7.5
-Date: 2014-02-14
+Version: 1.7.6
+Date: 2014-03-14
 Type: Package
 Title: Analysis of Variation in ChIP-seq using Functional PCA
 Author: Pedro Madrigal <pm59@cam.ac.uk>, with contributions from
@@ -29,4 +29,3 @@ Suggests: rtracklayer, GenomicRanges, CSAR, BiocStyle
 License: Artistic-2.0
 biocViews: Visualization, ChIPSeq, Transcription, Genetics, Sequencing,
         Sequencing
-
