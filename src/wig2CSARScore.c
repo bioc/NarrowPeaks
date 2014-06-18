@@ -16,11 +16,11 @@ int wig2CSARScore(const char* file_Name,int* nbChr, int* chrL,char** filenames,c
 	int x,z;
 	float y;
 	int start_c,step_c,span_c;
-	char str[100];
-	char chr_name[NB_Chr_MAX][20];
-	char start[NB_Chr_MAX][25];
-	char step[NB_Chr_MAX][25];
-	char span[NB_Chr_MAX][20];
+	char str[1000];
+	char chr_name[NB_Chr_MAX][200];
+	char start[NB_Chr_MAX][250];
+	char step[NB_Chr_MAX][250];
+	char span[NB_Chr_MAX][200];
 
 	if (*nbChr>NB_Chr_MAX)
 	{

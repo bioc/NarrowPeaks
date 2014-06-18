@@ -3,9 +3,9 @@
 \alias{wigfile_test}
 \alias{NarrowPeaks-dataset}
 
-\title{ Example Wiggle Track Produced After ChIP-seq Data Analysis}
+\title{ Example Wiggle Track Produced After ChIP-Seq Data Analysis}
 
-\description{ Example of wiggle track produced after ChIP-seq data analysis. The 
+\description{ Example of wiggle track produced after ChIP-Seq data analysis. The 
 data represents a small subset of a WIG file storing continuous value scores 
  based on a Poisson test for the chromosome 1 of \emph{Arabidopsis thaliana} 
 (Kaufmann et al., 2010). It contains first 49515 lines of the WIG file for the

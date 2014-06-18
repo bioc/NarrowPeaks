@@ -7,5 +7,6 @@
 \alias{list2matrix}
 \alias{mergeSites}
 \alias{sitesCreator}
+\alias{getRandString}
 
 \keyword{internal}

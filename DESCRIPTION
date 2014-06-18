@@ -1,15 +1,14 @@
 Package: NarrowPeaks
-Version: 1.9.1
-Date: 2014-03-14
+Version: 1.9.2
+Date: 2014-06-01
 Type: Package
-Title: Analysis of Variation in ChIP-seq using Functional PCA
-Author: Pedro Madrigal <pm59@cam.ac.uk>, with contributions from
-        Pawel Krajewski <pkra@igr.poznan.pl>
+Title: Shape-based Analysis of Variation in ChIP-Seq using Functional PCA
+Author: Pedro Madrigal <pm59@cam.ac.uk>, Pawel Krajewski <pkra@igr.poznan.pl>
 Description: The package applies a functional
         version of principal component analysis (FPCA) to: (1) Process
-        data in wiggle track format (WIG) commonly produced by ChIP-seq
+        data in wiggle track format (WIG) commonly produced by ChIP-Seq
         peak callers by applying FPCA over a set of read-enriched
-    	regions (ChIP-seq peaks). This is done in order to shorten the genomic
+    	regions (ChIP-Seq peaks). This is done in order to shorten the genomic
         locations accounting for a given proportion of variation among
         the enrichment-score profiles. The function 'narrowpeaks'
         allows splitting and trimming binding sites in
@@ -17,15 +16,15 @@ Description: The package applies a functional
         the putative transcription factor binding sites while
         preserving the information present in the variability of the
         dataset and capturing major sources of variation. (2) Analyse
-        differential variation between multiple ChIP-seq samples with 
-	replicates. The function 'bigwigdiff' quantifies differences
+        differential variation between multiple ChIP-Seq samples with 
+	replicates. The function 'fpcadiff' quantifies differences
         between the shapes, and uses Hotelling's T2 tests on
         the functional principal component scores to identify 
-	significant differences between conditions.
+	significant differences across conditions.
 Depends: R (>= 2.10.0), splines
 Maintainer: Pedro Madrigal <pmb59@cam.ac.uk>
-Imports: IRanges, GenomeInfoDb, GenomicRanges, fda, CSAR
-Suggests: rtracklayer, GenomicRanges, CSAR, BiocStyle
+Imports: IRanges, GenomicRanges, fda, CSAR, ICSNP
+Suggests: rtracklayer, BiocStyle, GenomeInfoDb
 License: Artistic-2.0
 biocViews: Visualization, ChIPSeq, Transcription, Genetics, Sequencing,
         Sequencing

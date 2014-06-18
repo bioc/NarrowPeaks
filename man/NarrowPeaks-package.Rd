@@ -3,26 +3,26 @@
 \alias{NarrowPeaks}
 \docType{package}
 
-\title{ Analysis of Variation in ChIP-seq using Functional PCA } 
+\title{ Shape-based Analysis of Variation in ChIP-Seq using Functional PCA } 
 
 \description{ The package applies a functional version of principal component 
 analysis (FPCA) to: (1) Process data in wiggle track format (WIG) commonly produced 
-by ChIP-seq peak callers by applying FPCA over a set of read-enriched regions 
-(ChIP-seq peaks). This is done in order to shorten the genomic locations accounting 
+by ChIP-Seq peak callers by applying FPCA over a set of read-enriched regions 
+(ChIP-Seq peaks). This is done in order to shorten the genomic locations accounting 
 for a given proportion of variation among the enrichment-score profiles. The function
  'narrowpeaks' allows splitting and trimming binding sites in close proximity to each 
  other, narrowing down the length of the putative transcription factor binding sites 
  while preserving the information present in the variability of the dataset and capturing 
- major sources of variation. (2) Analyse differential variation between multiple ChIP-seq 
- samples with replicates. The function 'bigwigdiff' quantifies differences between the 
+ major sources of variation. (2) Analyse differential variation between multiple ChIP-Seq 
+ samples with replicates. The function 'fpcadiff' quantifies differences between the 
  shapes, and uses Hotelling's T2 tests on the functional principal component scores to 
- identify significant differences between conditions. }
+ identify significant differences across conditions. }
 \details{
 \tabular{ll}{
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
-Version: \tab 1.7.6\cr
-Date: \tab 2014-03-14\cr
+Version: \tab 1.9.2\cr
+Date: \tab 2014-06-01\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
 }
@@ -35,14 +35,14 @@ Pedro Madrigal, with contributions from Pawel Krajewski
 Maintainer: Pedro Madrigal \email{pm59@cam.ac.uk}
 
 }
-\references{ Madrigal, P. et al. (in preparation) NarrowPeaks: an R/Bioconductor 
-package for splitting, trimming and differential analysis of ChIP-seq peaks using
- functional PCA.}
+\references{ Madrigal P, Krajewski P (in preparation) Shape-based Dimensionality Reduction 
+	Analyses by Functional PCA Reveal Associations between First and Higher Order Components 
+	in Next-Generation Sequencing Coverage Profiles.}
 
 \examples{
 owd <- setwd(tempdir())
 
-##For this example we will use a subset of the AP1 ChIP-seq data (Kaufmann et
+##For this example we will use a subset of the AP1 ChIP-Seq data (Kaufmann et
 ##al., 2010)
 ##The data is obtained after analysis using the CSAR package available in 
 ##Bioconductor 

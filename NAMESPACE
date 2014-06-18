@@ -1,10 +1,10 @@
 useDynLib(NarrowPeaks)
 exportPattern("^[^\\.]")
 
-importFrom(IRanges, Rle, IRanges, as.data.frame)
-importFrom(GenomeInfoDb, seqlengths, "seqlengths<-")
-importFrom(GenomicRanges, GRanges)
+importFrom(ICSNP, HotellingsT2)
 importFrom(CSAR, LoadBinCSAR)
+importFrom(GenomicRanges, GRanges, seqlengths, "seqlengths<-")
+importFrom(IRanges, Rle, IRanges, as.data.frame)
 import(fda)
 
 

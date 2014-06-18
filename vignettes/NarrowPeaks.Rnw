@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{NarrowPeaks Vignette. Splitting, trimming and differential analysis of ChIP-seq peaks}
+%\VignetteIndexEntry{NarrowPeaks Vignette. Shape-based splitting and trimming ChIP-Seq peaks using functional Principal Components}
 %\VignetteDepends{}
 %\VignetteKeywords{Visualization,ChIPseq,Transcription,Genetics,Sequencing,HighThroughputSequencing}
 %\VignettePackage{NarrowPeaks}
@@ -14,8 +14,8 @@ BiocStyle::latex(use.unsrturl=FALSE)
 
 \begin{document}
 
-\title{An Introduction to the \Biocpkg{NarrowPeaks} Package:\\ Narrowing Down Transcription Factor Binding Site Candidates from Functional Data}
-\date{Created: January, 2013. Last modified: September, 2013. Compiled: \today}
+\title{An Introduction to the \Biocpkg{NarrowPeaks} Package:\\ Narrowing Down Transcription Factor Binding Site Candidates from ChIP-Seq using Functional PCA}
+\date{Created: January, 2013. Last modified: June, 2014. Compiled: \today}
 \author{Pedro Madrigal}
 
 \maketitle
@@ -24,8 +24,8 @@ BiocStyle::latex(use.unsrturl=FALSE)
 \begin{small}
 \begin{flushleft}
 $^{1}$ Department of Biometry and Bioinformatics, Institute of Plant Genetics, Polish Academy of Sciences, Poznan, Poland \\
-$^{2}$ \underline{Present address}: Wellcome Trust Sanger Institute, Hinxton, Cambridge, UK \\
-$^{3}$ \underline{Present address}: University of Cambridge, Anne McLaren Laboratory for Regenerative Medicine, Cambridge, UK
+$^{2}$ \underline{Current address}: Wellcome Trust Sanger Institute, Wellcome Trust Genome Campus, Hinxton, Cambridge, UK \\
+$^{3}$ \underline{Current address}: Anne McLaren Laboratory for Regenerative Medicine, Department of Surgery, University of Cambridge, Cambridge, UK
 \end{flushleft}
 \end{small}
 
@@ -40,26 +40,26 @@ options(prompt="R> ")
 @ 
 
 \section{Goal of this Vignette}
-I will show how to split and trim ChIP-seq peaks in a WIG file by means of functional PCA. 
+We will show how to split and trim ChIP-Seq peaks in a WIG file by means of functional PCA. 
 
 \section{Introduction}
-Comprehensive ChIP-seq data analysis is carried out by many software tools \cite{Bailey2013}. 
-State-of-the-art bioinformatic algorithms so-called peak finders (e.g., \cite{Laajala2009},\cite{Pepke2009},\cite{Wilbanks2010}), are used to detect transcription factor binding sites (TFBSs) in high-throughput chromatin immunoprecipitation followed by sequencing (ChIP-seq). Data analysis is usually based on peak-search criteria of the local maxima over the read-enriched candidate regions. For computation purposes, several assumptions are made regarding the distribution of sample and control reads \cite{Bailey2013}. Although most sites reported by peak finders could be narrowed down to 100-400bp using merely visual inspection, this reduction is not typically reflected by the regions provided by current methods, therefore degrading the resolution \cite{Rye2011}. It is widely accepted that the subdivision of long regions into distinct subpeaks can further help recognizing \emph{bona fide} TFBSs that were merged into a wide area of signal enrichment (broad peak). \\
+Comprehensive ChIP-Seq data analyses are carried out by many software tools \cite{Bailey2013}. 
+State-of-the-art bioinformatic algorithms so-called peak finders (e.g., \cite{Laajala2009},\cite{Pepke2009},\cite{Wilbanks2010}), are used to detect transcription factor binding sites (TFBSs) in chromatin immunoprecipitation followed by high-throughput sequencing (ChIP-Seq). Data analysis is usually based on peak-search criteria of the local maxima over the read-enriched candidate regions. For computation purposes, several assumptions are made regarding the distribution of sample and control reads \cite{Bailey2013}. Although most sites reported by peak finders could be narrowed down to 100-400bp using merely visual inspection, this reduction is not typically reflected by the regions provided by current methods, therefore degrading the resolution \cite{Rye2011}. It is widely accepted that the subdivision of long regions into distinct subpeaks can further help recognizing \emph{bona fide} TFBSs that were merged into a wide area of signal enrichment (broad peak). \\
 
-We present here the R package \Biocpkg{NarrowPeaks} \cite{MadrigalSubmitted} able process data in WIG format (one of the most popular standard formats for visualisation of next-generation sequencing data is the \href{http://genome.ucsc.edu/FAQ/FAQformat}{wiggle track (WIG), and its indexed version bigWig}) data, and analyze it based on the theory of Functional Principal Component Analysis (FPCA) \cite{Ramsay2005}. Instructions to create WIG/bigWig coverage tracks can be found in \file{Text S1} in \cite{Bailey2013}  \\
+We present here the R package \Biocpkg{NarrowPeaks} \cite{MadrigalSubmitted} able process data in WIG format (one of the most popular standard formats for visualisation of next-generation sequencing data is the \href{http://genome.ucsc.edu/FAQ/FAQformat}{wiggle track (WIG), and its indexed version bigWig}) data, and analyze it based on statistics of Functional Principal Component Analysis (FPCA) \cite{Ramsay2005}. Instructions to create WIG/bigWig coverage tracks can be found in \file{Text S1} in \cite{Bailey2013}  \\
 
-The aim of this novel approach is to extract the most significant region of ChIP-seq peaks according to their primary modes of variation in the binding score profiles. It allows the user of this package to discriminate between binding regions in close proximity and shorten the length of the transcription factor binding sites preserving the information present in the the dataset at a user-defined level of variance. Without the trimming mode, it also serves to describe peak shapes using a set of statistics (FPCA scores) directly liked to the the principal components of the dataset. It facilitates the posterior clustering of the peaks by their peak-shape.
+The aim of this novel approach is to extract the most significant regions of ChIP-Seq peaks according to their primary modes of variation in the (binding score) profiles. It allows the user of this package to discriminate between binding regions in close proximity and shorten the length of the transcription factor binding sites preserving the information present in the the dataset at a user-defined level of variance. Without the trimming mode, it also serves to describe peak shapes using a set of statistics (FPCA scores) directly liked to the the principal components of the dataset. It facilitates the posterior clustering of the peaks by their peak-shape, as we have done also for histone modification ChIP-Seq and other next-generation sequencing data in \cite{MadrigalSubmitted}.
 
 
 
-\section{Methodolody}
+\section{Methodology}
 
-The functional version of PCA establishes a method for estimating orthogonal basis functions (principal components or \emph{eigenfunctions}) from functional data \cite{Ramsay2005}, in order to capture as much of the variation as possible in as few components as possible. We can highlight the genomic locations contributing to maximum variation (measured by an aproximation of the variance-covariance function) from a list of peaks of a ChIP-seq experiment. \\
+The functional version of PCA establishes a method for estimating orthogonal basis functions (principal components or \emph{eigenfunctions}) from functional data \cite{Ramsay2005}, in order to capture as much of the variation as possible in as few components as possible. We can highlight the genomic locations contributing to maximum variation (measured by an aproximation of the variance-covariance function) from a list of peaks of a ChIP-Seq experiment \cite{MadrigalSubmitted}. \\
 
-The algorithm converts a continuous signal of enrichment (from a WIG file into CSAR binary format), and extracts signal profiles of candidate 
+The algorithm converts a continuous signal of enrichment from a WIG file, and extracts signal profiles of candidate 
 TFBSs. 
 Afterwards, it characterizes the binding signals via B-spline basis functions expansion.
-Finally, functional PCA is performed in order to measure the variation of the ChIP-seq signal profiles under study. The output consists of a score-ranked list of sites according to their contribution to the total variation, which is accounted for by the trimmed (narrowed) principal components (estimated from the data). A detailed description of the method is available in \cite{MadrigalSubmitted}.
+Finally, functional PCA is performed in order to measure the variation of the ChIP-Seq signal profiles under study. The output consists of a score-ranked list of sites according to their contribution to the total variation, which is accounted for by the trimmed (narrowed) principal components (estimated from the data). A more detailed description of the method is available in \cite{MadrigalSubmitted}.
 
 
 \section{Example}
@@ -83,7 +83,7 @@ print(wigScores$infoscores$filenames)
 
 
 Next, the candidate binding site regions are extracted using the Bioconductor package \Biocpkg{CSAR} \cite{Muino2011}. CSAR predictions are contiguous genomic regions separated by a maximum allowed of \Robject{g} base pairs, and score enrichment values greater than \Robject{t}. Candidate regions are stored in a \Robject{GRanges} object (see Bioconductor package \Biocpkg{GenomicRanges}). 
-\textbf{Alternatively, ChIP-seq peaks obtained using other peak-callers can be provided building an analogous \Robject{GRanges} object}. In this case, the metadata 'score' must represent a numeric value directly proportional to the confidence of the peak ($p$-value) or the strength of the binding (fold-change).
+\textbf{Alternatively, ChIP-Seq peaks obtained using other peak-callers can be provided building an analogous \Robject{GRanges} object}. In this case, the metadata 'score' must represent a numeric value directly proportional to the confidence of the peak ($p$-value) or the strength of the binding (fold-change).
 
 \begin{small}
 <<extract candidate regions of enrichment in GRanges object>>=
@@ -206,10 +206,8 @@ sessionInfo()
 @ 
 \end{small}
 
-\section{Funding}
-This work was supported by the EU Marie Curie Initial Training Network SYSFLO (agreement number 237909).
-
-
+\section{Acknowledgements}
+This work was supported by the EU Marie Curie Initial Training Network SYSFLO (agreement number 237909). Special thanks to the users who've provided feedback about early versions of NarrowPeaks.
 
 
 \end{document}

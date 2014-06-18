@@ -18,7 +18,7 @@ transcription factor binding experiment. }
 Bioinformatics web site: \url{http://genome.ucsc.edu/FAQ/FAQformat}. It allows
  the display of continuous value data in the genome browser. Although 
 specifically designed for post-processing of WIG files, resulting from the 
-analysis of ChIP-seq experiments (with Bioconductor packages \pkg{BayesPeak},
+analysis of ChIP-Seq experiments (with Bioconductor packages \pkg{BayesPeak},
  \pkg{CSAR}, \pkg{PICS}, or other tools such as MACS, F-seq, etc.), 
 \pkg{NarrowPeaks} can process other type of sequencing data encoded in WIG 
 format in order to locate regions of high variability in the data. }
@@ -33,12 +33,15 @@ to be divided by 10^\code{digits}).}
 
 }
 
-\references{ Madrigal, P. et al. (in preparation) NarrowPeaks: an R/Bioconductor 
-package for splitting, trimming and differential analysis of ChIP-seq peaks 
-using functional PCA. \cr
-Muino, J. et al. (2011) ChIP-seq analysis in R (CSAR): An R package for the
- statistical detection of protein-bound genomic regions. Plant Methods 7:11.
+\references{ Madrigal P, Krajewski P (in preparation) Shape-based Dimensionality Reduction 
+	Analyses by Functional PCA Reveal Associations between First and Higher Order Components 
+	in Next-Generation Sequencing Coverage Profiles.\cr
+Muino JM, Kaufmann K, van Ham RC, Angenent GC, Krajewski P (2011) ChIP-seq analysis in 
+R (CSAR): An R package for the statistical detection of protein-bound genomic regions. 
+Plant Methods 7:11.
 }
+
+	
 
 \author{ Pedro Madrigal, \email{pm59@cam.ac.uk}}
 
@@ -47,7 +50,7 @@ Muino, J. et al. (2011) ChIP-seq analysis in R (CSAR): An R package for the
 \examples{
 owd <- setwd(tempdir())
 
-##For this example we will use a subset of the AP1 ChIP-seq data (Kaufmann et
+##For this example we will use a subset of the AP1 ChIP-Seq data (Kaufmann et
 ##al., 2010)
 ##The data is obtained after analysis using the CSAR package available in 
 ##Bioconductor 

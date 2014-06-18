@@ -1,9 +1,9 @@
 \name{narrowpeaks}
 \alias{narrowpeaks}
 
-\title{ Calculate Narrow Peaks from Enrichment-Score Profiles forming Broad
+\title{ Detect Narrow Peaks from Enrichment-Score Profiles forming Broad
  Peaks }
-\description{ Calculate narrow peaks from enrichment-score profiles forming
+\description{ Detect narrow peaks from enrichment-score profiles forming
  broad peaks. }
 
 \usage{
@@ -28,7 +28,7 @@ Integer value. }
   \item{npcomp}{ Number of functional principal components. Integer value 
 greater than or equal to \code{nbf}. }
   \item{pv}{ Minimum percentage of variation to take into account during the 
-analysis. Numeric value in the range 0-100. }
+analysis. Numeric value in the range 0-100 (see the vignette and the paper). }
   \item{pmaxscor}{ Cutoff for trimming of scoring function. Numeric value in 
 the range 0-100. }
   \item{ms}{ Peaks closer to each other than \code{ms} nucleotides are to be 
@@ -45,8 +45,8 @@ functions. The data values are fitted using either least squares (if
 if \eqn{rpenalty > 0}). \cr Then, a functional principal component analysis 
 for \code{npcomp} eigenfunctions is performed (Ramsay and Silverman, 2005), 
 giving as a result a set of probe scores (principal component scores) which 
-sum of squares is reported in \code{elementMetadata(broadPeaks)[,"fpcaScore"]
-}.The higher the value of \code{fpcaScore}, the higher the variance that 
+sum of squares is reported in \code{elementMetadata(broadPeaks)[,"fpcaScore"]}. 
+The higher the value of \code{fpcaScore}, the higher the variance that 
 candidate peak accounts for within the original data. Details on the usage 
 of semi-metrics in functional PCA is described in Ferraty and Vieu, 2006.\cr 
 After that, we impose the condition that total scoring function for each 
@@ -54,7 +54,7 @@ reported narrow peak must be at least \code{pmaxscor} per cent of the maximum
 value. Max value is calculated from a set of scoring functions using only the 
 eigenfunctions required to achieve \code{pv} percent of variance. A new set 
 of scores is computed using trimmed versions of the eigenfunctions (Madrigal 
-et al., submitted), and the root square is stored in 
+and Krajewski, submitted), and the root square is stored in 
 \code{elementMetadata(narrowPeaks)[,"trimmedScore"]}.
 
 }
@@ -85,9 +85,15 @@ equal to argument \code{pv}). }
   
 }
 
-\references{ Madrigal, P., Krajewski, P.(in preparation) NarrowPeaks: an 
-R/Bioconductor package for splitting, trimming and differential analysis of 
-ChIP-seq peaks using functional PCA. \cr
+\references{ Madrigal P, Krajewski P (in preparation) Shape-based Dimensionality Reduction 
+	Analyses by Functional PCA Reveal Associations between First and Higher Order Components 
+	in Next-Generation Sequencing Coverage Profiles. \cr
+Bailey T, Krajewski P, Ladunga I, Lefebvre C, Li Q, Liu T, Madrigal P, Taslim C, Zhang J (2013)
+ Practical guidelines for the comprehensive analysis of ChIP-seq data. PLoS Comput Biol
+ 9(11):e1003326. \cr
+ Muino JM, Kaufmann K, van Ham RC, Angenent GC, Krajewski P (2011) ChIP-seq analysis in R 
+ (CSAR): An R package for the statistical detection of protein-bound genomic regions. 
+ Plant Methods 7:11.  \cr
 Ramsay, J.O. and Silverman, B.W. (2005) Functional Data Analysis. New York:
  Springer. \cr
 Ferraty, F. and Vieu, P. (2006) Nonparametric Functional Data Analysis. 
@@ -101,7 +107,7 @@ New York: Springer.
 \examples{
 owd <- setwd(tempdir())
 
-##For this example we will use a subset of the AP1 ChIP-seq data (Kaufmann et
+##For this example we will use a subset of the AP1 ChIP-Seq data (Kaufmann et
 ##al., 2010)
 ##The data is obtained after analysis using the CSAR package available in 
 ##Bioconductor 

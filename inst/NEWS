@@ -1,8 +1,28 @@
-1.3.2:	 
-	- The functionality of NarrowPeaks has been extended to multiple ChIP-seq sample
-	comparison using FPCA, by implementing the function "bigwigdiff.R".
-	- Package title modified from "Functional Principal Component Analysis
-	to Narrow Down Transcription Factor Binding Site Candidates" to 
-	"Analysis of Variation in ChIP-seq using Functional PCA Statistics"
+CHANGES IN VERSION 1.9.2
+------------------------
+
+NEW FEATURES
+
+    o Corrected bug in getBindingProfiles.R concerning chromosome-name processing.
+
+    o Modified wig2CSARScore.c increase the max. number of chromosomes allowed in 
+      the WIG file.
+
+    o Package title modified from "Analysis of Variation in ChIP-Seq using 
+      Functional PCA Statistics" to "Shape-based Analysis of Variation in ChIP-Seq 
+      using Functional PCA Statistics"
 
 
+CHANGES IN VERSION 1.3.2
+------------------------
+
+NEW FEATURES
+
+    o The functionality of NarrowPeaks has been extended to multiple ChIP-Seq sample
+      comparison using FPCA, by implementing the function "fpcadiff.R".
+
+    o Package title modified from "Functional Principal Component Analysis
+      to Narrow Down Transcription Factor Binding Site Candidates" to 
+      "Analysis of Variation in ChIP-Seq using Functional PCA Statistics"
+
+ 
