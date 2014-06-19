@@ -1,12 +1,12 @@
-\name{fpcadiff}
-\alias{fpcadiff}
+\name{narrowpeaksDiff}
+\alias{narrowpeaksDiff}
 
 \title{ Differential Analysis of Transcription Factor Binding using FPCA }
 \description{ Shape-based differential binding analysis and testing for ChIP-Seq datasets 
 	using Functional Principal Component Analysis and Hotelling's T2 tests. }
 
 \usage{
-fpcadiff(bedFile,  headerBed= TRUE, flank=100, bigwigs , conditions , 
+narrowpeaksDiff(bedFile,  headerBed= TRUE, flank=100, bigwigs , conditions , 
 nbasis=50, pcs = 10, bigWigSummaryPath=getwd(), variation = 0.6)
 }
 
@@ -63,7 +63,7 @@ Ramsay, J.O. and Silverman, B.W. (2005) Functional Data Analysis. New York:
 ##library(NarrowPeaks)
 ##bigwigs <- c("A_rep1.bw","A_rep2.bw","A_rep3.bw","B_rep1.bw","B_rep2.bw","B_rep3.bw")
 ##conds   <- c("A","A","A","B","B","B")
-##x <- fpcadiff(bedFile="regions.bed", bigwigs=bigwigs, conditions=conds, variation = 0.8)
+##x <- narrowpeaksDiff(bedFile="regions.bed", bigwigs=bigwigs, conditions=conds, variation = 0.8)
 ##x$p.values
 
 }
