@@ -1,6 +1,6 @@
 
 
-fpcadiff <- function(bedFile,  headerBed= TRUE, flank=100, bigwigs , conditions , nbasis=50, pcs = 10, bigWigSummaryPath=getwd(), variation = 0.6) {
+narrowpeaksDiff <- function(bedFile,  headerBed= TRUE, flank=100, bigwigs , conditions , nbasis=50, pcs = 10, bigWigSummaryPath=getwd(), variation = 0.6) {
  
 
 	# Read BED file (chr start end  ref)
