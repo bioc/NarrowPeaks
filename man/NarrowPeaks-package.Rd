@@ -14,14 +14,14 @@ for a given proportion of variation among the enrichment-score profiles. The fun
  other, narrowing down the length of the putative transcription factor binding sites 
  while preserving the information present in the variability of the dataset and capturing 
  major sources of variation. (2) Analyse differential variation between multiple ChIP-Seq 
- samples with replicates. The function 'fpcadiff' quantifies differences between the 
+ samples with replicates. The function 'narrowpeaksDiff' quantifies differences between the 
  shapes, and uses Hotelling's T2 tests on the functional principal component scores to 
  identify significant differences across conditions. }
 \details{
 \tabular{ll}{
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
-Version: \tab 1.9.2\cr
+Version: \tab 1.9.3\cr
 Date: \tab 2014-06-01\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr

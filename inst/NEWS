@@ -19,7 +19,7 @@ CHANGES IN VERSION 1.3.2
 NEW FEATURES
 
     o The functionality of NarrowPeaks has been extended to multiple ChIP-Seq sample
-      comparison using FPCA, by implementing the function "fpcadiff.R".
+      comparison using FPCA, by implementing the function "narrowpeaksDiff.R".
 
     o Package title modified from "Functional Principal Component Analysis
       to Narrow Down Transcription Factor Binding Site Candidates" to 

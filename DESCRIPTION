@@ -1,5 +1,5 @@
 Package: NarrowPeaks
-Version: 1.9.2
+Version: 1.9.3
 Date: 2014-06-01
 Type: Package
 Title: Shape-based Analysis of Variation in ChIP-Seq using Functional PCA
@@ -17,7 +17,7 @@ Description: The package applies a functional
         preserving the information present in the variability of the
         dataset and capturing major sources of variation. (2) Analyse
         differential variation between multiple ChIP-Seq samples with 
-	replicates. The function 'fpcadiff' quantifies differences
+	replicates. The function 'narrowpeaksDiff' quantifies differences
         between the shapes, and uses Hotelling's T2 tests on
         the functional principal component scores to identify 
 	significant differences across conditions.
