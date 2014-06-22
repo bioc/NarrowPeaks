@@ -23,8 +23,8 @@ Description: The package applies a functional
 	significant differences across conditions.
 Depends: R (>= 2.10.0), splines
 Maintainer: Pedro Madrigal <pmb59@cam.ac.uk>
-Imports: IRanges, GenomicRanges, fda, CSAR, ICSNP
-Suggests: rtracklayer, BiocStyle, GenomeInfoDb
+Imports: IRanges, GenomicRanges, GenomeInfoDb, fda, CSAR, ICSNP
+Suggests: rtracklayer, BiocStyle, GenomicRanges, CSAR
 License: Artistic-2.0
 biocViews: Visualization, ChIPSeq, Transcription, Genetics, Sequencing,
         Sequencing
