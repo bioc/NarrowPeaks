@@ -1,5 +1,5 @@
 Package: NarrowPeaks
-Version: 1.9.4
+Version: 1.9.5
 Date: 2014-06-01
 Type: Package
 Title: Shape-based Analysis of Variation in ChIP-Seq using Functional PCA
@@ -23,7 +23,8 @@ Description: The package applies a functional
 	significant differences across conditions.
 Depends: R (>= 2.10.0), splines
 Maintainer: Pedro Madrigal <pmb59@cam.ac.uk>
-Imports: IRanges, GenomicRanges, GenomeInfoDb, fda, CSAR, ICSNP
+Imports: BiocGenerics, S4Vectors, IRanges, GenomicRanges, GenomeInfoDb,
+        fda, CSAR, ICSNP
 Suggests: rtracklayer, BiocStyle, GenomicRanges, CSAR
 License: Artistic-2.0
 biocViews: Visualization, ChIPSeq, Transcription, Genetics, Sequencing,
