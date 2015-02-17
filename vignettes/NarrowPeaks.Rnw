@@ -61,6 +61,10 @@ TFBSs.
 Afterwards, it characterizes the binding signals via B-spline basis functions expansion.
 Finally, functional PCA is performed in order to measure the variation of the ChIP-Seq signal profiles under study. The output consists of a score-ranked list of sites according to their contribution to the total variation, which is accounted for by the trimmed (narrowed) principal components (estimated from the data). A more detailed description of the method is available in \cite{MadrigalSubmitted}.
 
+\subsection{Splitting and Trimming ChIP-Seq Peaks}
+
+\subsection{Differential Transcription Factor Binding Analysis}
+
 
 \section{Example}
 
