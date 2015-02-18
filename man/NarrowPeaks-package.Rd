@@ -21,7 +21,7 @@ for a given proportion of variation among the enrichment-score profiles. The fun
 \tabular{ll}{
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
-Version: \tab 1.11.2\cr
+Version: \tab 1.11.3\cr
 Date: \tab 2015-02-01\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
