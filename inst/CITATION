@@ -15,9 +15,7 @@ citEntry(entry="article",
          doi = "10.1186/s13059-015-0597-1",
          url = "http://genomebiology.com/2015/16/1/31",
          volume = 16,
-         issue = February,
+         issue = 1,
          pages = 31,
          textVersion = 
-         paste("Julieta L Mateos, Pedro Madrigal, Kenichi Tsuda, Vimal Rawat, Rene Richter, Maida Romera-Branchat, Fabio Fornara, Korbinian Schneeberger, Pawel Krajewski and George Coupland (2015):", 
-               "Combinatorial activities of SHORT VEGETATIVE PHASE and FLOWERING LOCUS C define distinct modes of flowering regulation in Arabidopsis.",
-                "Genome Biology" ) )
+         paste("Julieta L Mateos, Pedro Madrigal, Kenichi Tsuda, Vimal Rawat, Rene Richter, Maida Romera-Branchat, Fabio Fornara, Korbinian Schneeberger, Pawel Krajewski and George Coupland (2015):", "Combinatorial activities of SHORT VEGETATIVE PHASE and FLOWERING LOCUS C define distinct modes of flowering regulation in Arabidopsis.", "Genome Biology" ) )
