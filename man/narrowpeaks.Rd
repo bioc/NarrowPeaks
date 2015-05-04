@@ -85,12 +85,8 @@ equal to argument \code{pv}). }
   
 }
 
-\references{ Madrigal P, Krajewski P (in preparation) Shape-based Dimensionality Reduction 
-	Analyses by Functional PCA Reveal Associations between First and Higher Order Components 
-	in Next-Generation Sequencing Coverage Profiles. \cr
-Bailey T, Krajewski P, Ladunga I, Lefebvre C, Li Q, Liu T, Madrigal P, Taslim C, Zhang J (2013)
- Practical guidelines for the comprehensive analysis of ChIP-seq data. PLoS Comput Biol
- 9(11):e1003326. \cr
+\references{ Mateos JL, Madrigal P, et al. (2015) Combinatorial activities of SHORT VEGETATIVE PHASE and FLOWERING LOCUS C define distinct modes of flowering regulation in Arabidopsis. Genome Biology 16: 31.\cr
+Bailey T, Krajewski P, Ladunga I, Lefebvre C, Li Q, Liu T, Madrigal P, Taslim C, Zhang J (2013) Practical Guidelines for the Comprehensive Analysis of ChIP-seq data. PLOS Comput Biol. 9 (11): e1003326. \cr
  Muino JM, Kaufmann K, van Ham RC, Angenent GC, Krajewski P (2011) ChIP-seq analysis in R 
  (CSAR): An R package for the statistical detection of protein-bound genomic regions. 
  Plant Methods 7:11.  \cr
@@ -107,7 +103,7 @@ New York: Springer.
 \examples{
 owd <- setwd(tempdir())
 
-##For this example we will use a subset of the AP1 ChIP-Seq data (Kaufmann et
+##For this example we will use a subset of the AP1 ChIP-seq data (Kaufmann et
 ##al., 2010)
 ##The data is obtained after analysis using the CSAR package available in 
 ##Bioconductor 

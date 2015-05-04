@@ -2,7 +2,7 @@
 \alias{narrowpeaksDiff}
 
 \title{ Differential Analysis of Transcription Factor Binding using FPCA }
-\description{ Shape-based differential binding analysis and testing for ChIP-Seq datasets 
+\description{ Shape-based differential binding analysis and testing for ChIP-seq datasets 
 	using Functional Principal Component Analysis and Hotelling's T2 tests. }
 
 \usage{
@@ -32,7 +32,7 @@ nbasis=50, pcs = 10, bigWigSummaryPath=getwd(), variation = 0.6)
 
 }
 
-\details{ Detailed information can be found in Madrigal and Krajewski (in preparation).}
+\details{ Detailed information can be found in the vignette of the package. }
 
 
 \value{
@@ -44,12 +44,9 @@ nbasis=50, pcs = 10, bigWigSummaryPath=getwd(), variation = 0.6)
   
 }
 
-\references{ Madrigal P, Krajewski P (in preparation) Shape-based Dimensionality Reduction 
-	Analyses by Functional PCA Reveal Associations between First and Higher Order Components 
-	in Next-Generation Sequencing Coverage Profiles. \cr
-Bailey T, Krajewski P, Ladunga I, Lefebvre C, Li Q, Liu T, Madrigal P, Taslim C, Zhang J (2013)
- Practical guidelines for the comprehensive analysis of ChIP-seq data. PLoS Comput Biol
- 9(11):e1003326. \cr
+ 
+\references{ Mateos JL, Madrigal P, et al. (2015) Combinatorial activities of SHORT VEGETATIVE PHASE and FLOWERING LOCUS C define distinct modes of flowering regulation in Arabidopsis. Genome Biology 16: 31.\cr
+Bailey T, Krajewski P, Ladunga I, Lefebvre C, Li Q, Liu T, Madrigal P, Taslim C, Zhang J (2013) Practical Guidelines for the Comprehensive Analysis of ChIP-seq data. PLOS Comput Biol. 9 (11): e1003326. \cr 
 Ramsay, J.O. and Silverman, B.W. (2005) Functional Data Analysis. New York:
  Springer. 
 }
@@ -60,9 +57,10 @@ Ramsay, J.O. and Silverman, B.W. (2005) Functional Data Analysis. New York:
 
 \examples{
 
+##Example code:
 ##library(NarrowPeaks)
-##bigwigs <- c("A_rep1.bw","A_rep2.bw","A_rep3.bw","B_rep1.bw","B_rep2.bw","B_rep3.bw")
-##conds   <- c("A","A","A","B","B","B")
+##bigwigs <- c("SVP_WT_rep1.bw","SVP_WT_rep2.bw","SVP_WT_rep3.bw","SVP_mt_rep1.bw","SVP_mt_rep2.bw","SVP_mt_rep3.bw")
+##conds   <- c("SVP_WT","SVP_WT","SVP_WT","SVP_mt","SVP_mt","SVP_mt")
 ##x <- narrowpeaksDiff(bedFile="regions.bed", bigwigs=bigwigs, conditions=conds, variation = 0.8)
 ##x$p.values
 

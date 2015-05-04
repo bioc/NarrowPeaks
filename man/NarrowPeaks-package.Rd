@@ -3,26 +3,29 @@
 \alias{NarrowPeaks}
 \docType{package}
 
-\title{ Shape-based Analysis of Variation in ChIP-Seq using Functional PCA } 
+\title{ Shape-based Analysis of Variation in ChIP-seq using Functional PCA } 
 
-\description{ The package applies a functional version of principal component 
-analysis (FPCA) to: (1) Process data in wiggle track format (WIG) commonly produced 
-by ChIP-Seq peak callers by applying FPCA over a set of read-enriched regions 
-(ChIP-Seq peaks). This is done in order to shorten the genomic locations accounting 
-for a given proportion of variation among the enrichment-score profiles. The function
- 'narrowpeaks' allows splitting and trimming binding sites in close proximity to each 
- other, narrowing down the length of the putative transcription factor binding sites 
- while preserving the information present in the variability of the dataset and capturing 
- major sources of variation. (2) Analyse differential variation between multiple ChIP-Seq 
- samples with replicates. The function 'narrowpeaksDiff' quantifies differences between the 
- shapes, and uses Hotelling's T2 tests on the functional principal component scores to 
- identify significant differences across conditions. }
+\description{ The package applies a functional
+        version of principal component analysis (FPCA) to: (1) Postprocess
+        data in wiggle track format, commonly produced by generic ChIP-seq
+        peak callers, by applying FPCA over a set of read-enriched
+      regions (ChIP-seq peaks). This is done to study variability of the 
+	the peaks, or to shorten their genomic 
+        locations accounting for a given proportion of variation among
+        the enrichment-score profiles. (2) Analyse
+        differential variation between multiple ChIP-seq samples with 
+	replicates. The function 'narrowpeaksDiff' quantifies differences
+        between the shapes, and uses Hotelling's T2 tests on
+        the functional principal component scores to identify 
+	significant differences across conditions. An application of the package 
+	for Arabidopsis datasets is described in Mateos, Madrigal, et al. 
+	(2015) Genome Biology: 16:31. }
 \details{
 \tabular{ll}{
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
-Version: \tab 1.11.4\cr
-Date: \tab 2015-02-01\cr
+Version: \tab 1.13.1\cr
+Date: \tab 2015-05-01\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
 }
@@ -35,14 +38,13 @@ Pedro Madrigal, with contributions from Pawel Krajewski
 Maintainer: Pedro Madrigal \email{pm59@cam.ac.uk}
 
 }
-\references{ Madrigal P, Krajewski P (in preparation) Shape-based Dimensionality Reduction 
-	Analyses by Functional PCA Reveal Associations between First and Higher Order Components 
-	in Next-Generation Sequencing Coverage Profiles.}
+\references{ Mateos JL, Madrigal P, et al. (2015) Combinatorial activities of SHORT VEGETATIVE PHASE and FLOWERING LOCUS C define distinct modes of flowering regulation in Arabidopsis. Genome Biology 16: 31.\cr
+Bailey T, Krajewski P, Ladunga I, Lefebvre C, Li Q, Liu T, Madrigal P, Taslim C, Zhang J (2013) Practical Guidelines for the Comprehensive Analysis of ChIP-seq data. PLOS Comput Biol. 9 (11): e1003326. }
 
 \examples{
 owd <- setwd(tempdir())
 
-##For this example we will use a subset of the AP1 ChIP-Seq data (Kaufmann et
+##For this example we will use a subset of the AP1 ChIP-seq data (Kaufmann et
 ##al., 2010)
 ##The data is obtained after analysis using the CSAR package available in 
 ##Bioconductor 
