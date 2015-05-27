@@ -42,7 +42,7 @@ Plant Methods 7:11.
 
 	
 
-\author{ Pedro Madrigal, \email{pm59@cam.ac.uk}}
+\author{ Pedro Madrigal, \email{pm12@sanger.ac.uk}}
 
 \seealso{ \code{\link{narrowpeaks}}, \code{\link{NarrowPeaks-package}} }
 

@@ -1,9 +1,9 @@
 Package: NarrowPeaks
-Version: 1.13.1
-Date: 2015-05-01
+Version: 1.13.2
+Date: 2015-05-27
 Type: Package
 Title: Shape-based Analysis of Variation in ChIP-seq using Functional PCA
-Author: Pedro Madrigal <pm59@cam.ac.uk>, Pawel Krajewski <pkra@igr.poznan.pl>
+Author: Pedro Madrigal <pm12@sanger.ac.uk>, Pawel Krajewski <pkra@igr.poznan.pl>
 Description: The package applies a functional
         version of principal component analysis (FPCA) to: (1) Postprocess
         data in wiggle track format, commonly produced by generic ChIP-seq
@@ -20,7 +20,7 @@ Description: The package applies a functional
 	for Arabidopsis datasets is described in Mateos, Madrigal, et al. 
 	(2015) Genome Biology: 16:31.
 Depends: R (>= 2.10.0), splines
-Maintainer: Pedro Madrigal <pmb59@cam.ac.uk>
+Maintainer: Pedro Madrigal <pm12@sanger.ac.uk>
 Imports: BiocGenerics, S4Vectors, IRanges, GenomicRanges, GenomeInfoDb,
         fda, CSAR, ICSNP
 Suggests: rtracklayer, BiocStyle, GenomicRanges, CSAR
