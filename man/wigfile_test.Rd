@@ -6,7 +6,7 @@
 \title{ Example Wiggle Track Produced After ChIP-seq Data Analysis}
 
 \description{ Example of wiggle track produced after ChIP-seq data analysis. The 
-data represents a small subset of a WIG file storing continuous value scores 
+data represents a small subset of a WIG file storing continuous-valued scores 
  based on a Poisson test for the chromosome 1 of \emph{Arabidopsis thaliana} 
 (Kaufmann et al., 2010). It contains first 49515 lines of the WIG file for the
  complete experiment. }

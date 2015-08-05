@@ -3,7 +3,7 @@
 
 \title{ Convert Data from a Wiggle Track (WIG) File to CSAR Binary Format }
 \description{ Convert data from a wiggle track (WIG) file to CSAR binary 
-format and extract enriched regions. }
+format and extract read-enriched regions. }
 
 \usage{ wig2CSARScore(wigfilename, nbchr, chrle) }
 
@@ -14,7 +14,7 @@ transcription factor binding experiment. }
   \item{chrle}{ Vector of lengths of the chromosomes (in base pairs). }
 }
 
-\details{ The Wiggle format (WIG) is described on the UCSC Genome 
+\details{ The Wiggle format (WIG/bigWig) is described on the UCSC Genome 
 Bioinformatics web site: \url{http://genome.ucsc.edu/FAQ/FAQformat}. It allows
  the display of continuous value data in the genome browser. Although 
 specifically designed for post-processing of WIG files, resulting from the 

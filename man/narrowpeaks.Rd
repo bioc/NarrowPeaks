@@ -1,10 +1,9 @@
 \name{narrowpeaks}
 \alias{narrowpeaks}
 
-\title{ Detect Narrow Peaks from Enrichment-Score Profiles forming Broad
- Peaks }
-\description{ Detect narrow peaks from enrichment-score profiles forming
- broad peaks. }
+\title{ Detect Narrow Peaks from Enrichment-Score Profiles }
+\description{ Detect narrow peaks from enrichment-score profiles (ChIP-seq
+ peak regions). }
 
 \usage{
 narrowpeaks(inputReg, scoresInfo, lmin = 0, nbf = 50, rpenalty= 0,  
@@ -19,8 +18,8 @@ nderiv= 0, npcomp = 5, pv = 80, pmaxscor = 0.0, ms = 0)
  with package \pkg{CSAR}. }
   \item{lmin}{ Minimum length of an enriched region from the WIG file to be 
 processed. Integer value. }
-  \item{nbf}{ Number of order 4 B-spline basis functions that will represent 
-the shape of each candidate site. Integer value.  }
+  \item{nbf}{ Number of order-4 B-spline basis functions that will represent 
+the shape of each candidate transcription factor binding site. Integer value.  }
   \item{rpenalty}{ Smoothing parameter for derivative penalization. Positive 
 numeric value. }
   \item{nderiv}{ Order of derivative penalization, if \code{rpenalty}>0. 
@@ -28,10 +27,11 @@ Integer value. }
   \item{npcomp}{ Number of functional principal components. Integer value 
 greater than or equal to \code{nbf}. }
   \item{pv}{ Minimum percentage of variation to take into account during the 
-analysis. Numeric value in the range 0-100 (see the vignette and the paper). }
+analysis. Numeric value in the range 0-100 (see the vignette and Mateos, Madrigal,
+et al. (2015)). }
   \item{pmaxscor}{ Cutoff for trimming of scoring function. Numeric value in 
 the range 0-100. }
-  \item{ms}{ Peaks closer to each other than \code{ms} nucleotides are to be 
+  \item{ms}{ Peaks closer to each other than \code{ms} nucleotides will be 
 merged in the final list. Integer value. }
 
 }
@@ -39,7 +39,7 @@ merged in the final list. Integer value. }
 \details{ This function produces shortened sites from a list of candidate 
 transcription factor binding sites of arbitrary extension and shape. First, 
 the enrichment signal from each candidate site is represented by a smoothed 
-function constructed using a linear combination of order 4 B-spline basis 
+function constructed using a linear combination of order-4 B-spline basis 
 functions. The data values are fitted using either least squares (if 
 \eqn{rpenalty = 0}), or penalized residuals sum of squares (spline smoothing 
 if \eqn{rpenalty > 0}). \cr Then, a functional principal component analysis 
@@ -53,8 +53,8 @@ After that, we impose the condition that total scoring function for each
 reported narrow peak must be at least \code{pmaxscor} per cent of the maximum 
 value. Max value is calculated from a set of scoring functions using only the 
 eigenfunctions required to achieve \code{pv} percent of variance. A new set 
-of scores is computed using trimmed versions of the eigenfunctions (Madrigal 
-and Krajewski, submitted), and the root square is stored in 
+of scores is computed using trimmed versions of the eigenfunctions (see 
+Vignette), and the root square is stored in 
 \code{elementMetadata(narrowPeaks)[,"trimmedScore"]}.
 
 }

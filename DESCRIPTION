@@ -1,6 +1,6 @@
 Package: NarrowPeaks
-Version: 1.13.2
-Date: 2015-05-27
+Version: 1.13.3
+Date: 2015-06-27
 Type: Package
 Title: Shape-based Analysis of Variation in ChIP-seq using Functional PCA
 Author: Pedro Madrigal <pm12@sanger.ac.uk>, Pawel Krajewski <pkra@igr.poznan.pl>

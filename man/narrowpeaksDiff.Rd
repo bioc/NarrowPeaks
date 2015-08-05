@@ -2,7 +2,7 @@
 \alias{narrowpeaksDiff}
 
 \title{ Differential Analysis of Transcription Factor Binding using FPCA }
-\description{ Shape-based differential binding analysis and testing for ChIP-seq datasets 
+\description{ Shape-based differential binding analysis and hypothesis testing for ChIP-seq datasets 
 	using Functional Principal Component Analysis and Hotelling's T2 tests. }
 
 \usage{
@@ -13,22 +13,22 @@ nbasis=50, pcs = 10, bigWigSummaryPath=getwd(), variation = 0.6)
 \arguments{
 
   \item{bedFile}{ Text file in BED format. It should contain at least 3 columns (chr, start, end), 
-  	in which case the reference point for the FD analysis is calculated as the central point. A 4-th 
+  	in which case the reference point for FDA is calculated as the central point. A 4-th 
   	column can be provided containing the reference point.  }
   \item{headerBed}{ 'TRUE' if the first row in the BED file contain the name of the columns. 
   	'FALSE' otherwise.}
   \item{flank}{ Length (in bp.) that is considered upstream and downstream the reference point 
   	(or central point, if reference point is not given) for functional principal component analysis. }
   \item{bigwigs}{ Vector contaning the name of the bigWig files to be used in the analysis. }
-  \item{conditions}{ Vector of characters with the Labels for the bigWig files. Biological replicates
+  \item{conditions}{ Vector of characters with the LABELS for the bigWig files. Biological replicates
   	must have the same label.}
   \item{nbasis}{ Number of order-4 B-Spline basis functions for functional data analysis.}
   \item{pcs}{ Number of principal components to be computed (default is 10). }
   \item{bigWigSummaryPath}{Path to the UCSC utility bigWigSummary (in case it is differente from the current 
   	directory). The tool can be downloaded for Linux and macOSX from the UCSC website: 
   	http://hgdownload.cse.ucsc.edu/admin/exe/}
-  \item{variation}{Minimum proportion of varition that is considered to select the number of functional 
-  	principal component scores used in the Hotelling's T2 tests (0-1, defualt is 0.6). }
+  \item{variation}{Minimum proportion of variation that is considered to select the number of functional 
+  	principal component scores used in the Hotelling's T2 tests (0-1, default is 0.6). }
 
 }
 

@@ -15,7 +15,7 @@ BiocStyle::latex(use.unsrturl=FALSE)
 \begin{document}
 
 \title{An Introduction to the \Biocpkg{NarrowPeaks} Package:\\ Analysis of Transcription Factor Binding ChIP-seq Data using Functional PCA}
-\date{Created: January, 2013. Last modified: May, 2015. Compiled: \today}
+\date{Created: January, 2013. Last modified: July, 2015. Compiled: \today}
 \author{Pedro Madrigal}
 
 \maketitle
@@ -25,7 +25,7 @@ BiocStyle::latex(use.unsrturl=FALSE)
 \begin{flushleft}
 $^{1}$ Department of Biometry and Bioinformatics, Institute of Plant Genetics, Polish Academy of Sciences, Poznan, Poland \\
 $^{2}$ \underline{Current address}: Wellcome Trust Sanger Institute, Wellcome Trust Genome Campus, Hinxton, Cambridge, UK \\
-$^{3}$ \underline{Current address}: Anne McLaren Laboratory for Regenerative Medicine, Department of Surgery, University of Cambridge, Cambridge, UK
+$^{3}$ \underline{Current address}: Wellcome Trust - MRC Cambridge Stem Cell Institute, Anne McLaren Laboratory for Regenerative Medicine, Department of Surgery, University of Cambridge, Cambridge, UK
 \end{flushleft}
 \end{small}
 
@@ -39,37 +39,39 @@ options(continue=" ")
 options(prompt="R> ")
 @ 
 
-\section{In brief}
-We have developed an R package able to analyze the variability present in a set of transcription factor binding obtained by ChIP-seq. The goal of this document is to introduce ChIP-seq data analysis by means of functional PCA. 
+\section{Citation}
+We have developed an R package able to analyze the variability in a set of candidate transcription factor binding sites (TFBSs) obtained by chromatin immunoprecipitation followed by high-throughput sequencing (ChIP-seq). The goal of this document is to introduce ChIP-seq data analysis by means of functional principal component analysis (FPCA). An application of the package for Arabidopsis datasets is described in:
 
-\section{Introduction}
-Next-generation sequencing is enabling the scientific community to go a step further in the understanding of molecular mechanisms controlling transcriptional regulation. Comprehensive ChIP-seq data analyses are carried out by many software tools \cite{Bailey2013}. 
-State-of-the-art bioinformatic tools (e.g., \cite{Laajala2009},\cite{Pepke2009},\cite{Wilbanks2010}) are used to detect transcription factor binding sites (TFBSs) in chromatin immunoprecipitation followed by high-throughput sequencing (ChIP-seq). Data analysis is usually based on peak-search criteria of the local maxima over the read-enriched candidate regions, but other approaches do exist \cite{Bailey2013}. For computation purposes, several assumptions are made regarding the distribution of sample and control reads \cite{Bailey2013}. Although most sites reported by peak finders could be narrowed down to 100-400bp using merely visual inspection, this reduction is not typically reflected by the regions provided by current methods, therefore degrading the resolution \cite{Rye2011}. It is widely accepted that the subdivision of long regions into distinct subpeaks can further help recognizing \emph{bona fide} TFBSs that were merged into a wide area of signal enrichment (broad peak). \\
+Mateos JL, Madrigal P, Tsuda K, Rawat V, Richter R, Romera-Branchat M, Fornara F, Schneeberger K, Krajewski P and Coupland G (2015). Combinatorial activities of SHORT VEGETATIVE PHASE and FLOWERING LOCUS C define distinct modes of flowering regulation in Arabidopsis. Genome Biology 16: 31. \href{http://doi.org/10.1186/s13059-015-0597-1}{http://doi.org/10.1186/s13059-015-0597-1}. 
 
-We present here the R package \Biocpkg{NarrowPeaks} able process data in WIG format (one of the most popular standard formats for visualisation of next-generation sequencing data is the \href{http://genome.ucsc.edu/FAQ/FAQformat}{wiggle track (WIG), and its indexed version bigWig}) data, and analyze it based on statistics of Functional Principal Component Analysis (FPCA) \cite{Ramsay2005}. Instructions to create WIG/bigWig coverage tracks can be found in \file{Text S1} in \cite{Bailey2013}. The aim of this novel approach is to extract the most significant regions of ChIP-seq peaks according to their primary modes of variation in the (binding score) profiles. It allows the user of this package to discriminate between binding regions in close proximity and shorten the length of the transcription factor binding sites preserving the information present in the the dataset at a user-defined level of variance. Without the trimming mode, it also serves to describe peak shapes using a set of statistics (FPCA scores) directly liked to the the principal components of the dataset, which is useful for post-processing ChIP-seq peak afer generic peak calling, and to analyze differential binding of transcription factors across several conditions of treatments \cite{pmid25853185,Bailey2013}
+\section{Introduction and motivation}
+Next-generation sequencing enables the scientific community to go a step further in the understanding of molecular mechanisms controlling transcriptional regulation. Comprehensive ChIP-seq data analyses are carried out by many software tools \cite{Bailey2013}. 
+Some of these bioinformatic tools \cite{Laajala2009,Pepke2009,Wilbanks2010} are used to detect TFBSs in ChIP-seq data. Data analysis is usually based on peak-search criteria of the local maxima over the read-enriched candidate regions, but other approaches do exist \cite{Bailey2013}. For computation purposes, several assumptions are made regarding the distribution of sample and control reads \cite{Bailey2013}. Although most sites reported by peak finders could be narrowed down to 100-400bp using merely visual inspection, this reduction is not typically reflected by the regions provided by current methods, therefore degrading the resolution \cite{Rye2011}. \\ %It is widely accepted that the subdivision of long regions into distinct subpeaks can further help recognizing \emph{bona fide} TFBSs that were merged into a wide area of signal enrichment (broad peak). \\
+
+Here we present the R package \Biocpkg{NarrowPeaks}, able process data in WIG format (one of the most popular standard formats for visualisation of next-generation sequencing data is the \href{http://genome.ucsc.edu/FAQ/FAQformat}{wiggle track (WIG), and its indexed version bigWig}) data, and analyze it based on statistics of Functional Principal Component Analysis (FPCA) \cite{Ramsay2005}. Instructions on how to generate WIG/bigWig coverage tracks can be found in \file{Text S1} in \cite{Bailey2013}. The aim of this novel approach is to extract the most significant regions of ChIP-seq peaks according to their primary modes of variation in the (binding score) profiles. It allows to charaterise the ChIP-seq peak using shape-based information, and could allow the user of this package to discriminate between binding regions in close proximity and shorten the length of the transcription factor binding sites preserving the information present in the the dataset at a user-defined level of variance. Without the trimming mode (see below), it also serves to describe peak shapes using a set of statistics (FPCA scores) directly liked to the principal components of the dataset, which is useful for post-processing ChIP-seq peaks after generic peak calling, and to analyze differential binding of transcription factors across several conditions or treatments \cite{pmid25853185,Bailey2013}.
 
 
 
 \section{Methodology}
 
-The functional version of PCA establishes a method for estimating orthogonal basis functions (principal components or \emph{eigenfunctions}) from functional data \cite{Ramsay2005}, in order to capture as much of the variation as possible in as few components as possible. We can highlight the genomic locations contributing to maximum variation (measured by an aproximation of the variance-covariance function) from a list of peaks of a ChIP-seq experiment. \\
+The functional version of PCA establishes a method for estimating orthogonal basis functions (principal components or \emph{eigenfunctions}) from functional data \cite{Ramsay2005}, in order to capture as much of the variation as possible in as few components as possible. We can highlight the genomic locations contributing to maximum variation (measured by an aproximation of the variance-covariance function) from a list of peaks of a ChIP-seq experiment. We have presented the basics of this methodology in Madrigal and Krajewski (2015) \cite{pmid26140054}. \\
 
-The algorithm converts a continuous signal of enrichment from a WIG file, and extracts signal profiles of candidate 
+The algorithm first converts a continuous signal of enrichment from a WIG file, and extracts signal profiles of candidate 
 TFBSs. 
-Afterwards, it characterizes the binding signals via B-spline basis functions expansion.
-Finally, functional PCA is performed in order to measure the variation of the ChIP-seq signal profiles under study. The output consists of a score-ranked list of sites according to their contribution to the total variation, which is accounted for by the trimmed (narrowed) principal components (estimated from the data). A more detailed description of the method is described below.
+Secondly, it characterises the binding signals using a B-spline basis functions expansion.
+Finally, FPCA is performed in order to measure the variation of the ChIP-seq signal profiles under study. The output consists of a score-ranked list of sites according to their contribution to the total variation. A more detailed description of the method and its application to TF ChIP-seq data can be found below.
 
-\subsection{Post-processing, splitting or trimming ChIP-seq Peaks}
+\subsection{Post-processing, splitting or trimming ChIP-seq peaks}
 
-Consider a situation in which a number of peaks have been called in a single ChIP experiment. 
-The enrichment signals (peaks) in $n$ candidate TF binding sites of arbitrary length and shape are denoted by functions $x_i (t),i=1,\ldots,N $, centered in a common interval $(1,L)$, and a profile $x_{0}(t) \equiv 0 $, representing the null enrichment. These are considered as a family of curves $\chi =\{x_i (t);t\in(1,L);i\in(0,N)\} $, approximated by linear combinations of $K$ B-spline basis functions $\phi_k(t)$ with coefficients $c_{ik}$, $i=0,\ldots,n $; $k=1,\ldots,K $, as
+Consider a situation in which a number of peaks have been called in a ChIP-seq experiment. 
+The (read) enrichment signals (peaks) in $n$ candidate TF binding sites of arbitrary length and shape are denoted by the functions $x_i (t),i=1,\ldots,N $, centered in a common interval $(1,L)$, and a profile $x_{0}(t) \equiv 0 $, representing the null enrichment. These are considered as a family of curves $\chi =\{x_i (t);t\in(1,L);i\in(0,N)\} $, approximated by linear combinations of $K$ B-spline basis functions $\phi_k(t)$ with coefficients $c_{ik}$, $i=0,\ldots,n $; $k=1,\ldots,K $, as
 \begin{equation}
 x_{i}(t)=\sum\limits_{k=1}^K c_{ik} \phi_k(t)\mbox{.}
 \end{equation}
 
-The coefficients are estimated by either least squares or penalized residual sum of squares criterion (for further details see \cite{Ramsay2005}). The input list of sites defined in $\chi$ may include also low-enriched regions (weak peaks). For example, using the Bioconductor package CSAR \cite{Muino2011}, candidate binding sites can be selected as those broad regions separated by a maximum allowed gap of \begin{math}g\end{math} bp, and profile values higher than \begin{math}r\end{math}. Alternatively other initial set of candidate regions, such as those obtained using general peak-calling tools \cite{Bailey2013}, is also allowed as an input file in BED format.
+The coefficients can be estimated by either least squares or penalized residual sum of squares criterion (for further details see \cite{Ramsay2005}). The input list of sites defined in $\chi$ may include also low-enriched regions (weak peaks). For example, using the Bioconductor package CSAR \cite{Muino2011}, candidate binding sites can be selected as those broad regions separated by a maximum allowed gap of \begin{math}g\end{math} bp, and profile values higher than \begin{math}r\end{math}. Alternatively, other initial set of candidate regions, such as those obtained using general peak-calling tools \cite{Bailey2013}, is also allowed as an input file in BED format.
 
-Subsequently, FPCA is run to estimate $J \leq K $ mutually orthogonal and normalized eigenfunctions $\xi_{j}(t)$, $j=1,\ldots,J $ capturing as much of the variation as possible in $\chi$, thus finding the subintervals in which the data present the highest variability. This is done solving the equation
+Subsequently, FPCA is run to estimate $J \leq K $ mutually orthogonal and normalized eigenfunctions $\xi_{j}(t)$, $j=1,\ldots,J $ capturing as much of the variation as possible in $\chi$, thus finding the subintervals in which the data present the highest variability. This is done solving the equation:
 \begin{equation}
 \int  v(s,t) \xi_{j}(t) dt = \delta_{j} \xi_{j}(s)
 \end{equation}
@@ -79,12 +81,12 @@ for the appropriate eigenvalues $\delta_{j}$. The covariance function $v(s,t)$, 
 v(s,t)=\frac{1}{N} \sum\limits_{i=0}^N x_{i}(s) x_{i}(t)\mbox{.}
 \end{equation}
 
-For each element of $\chi $ the FPCA scores are computed as $ s_{ij}=\int \gamma_{ij}(t) dt $, where $ \gamma_{ij}(t)=\xi_{j}(t) [x_{i}(t)-\overline{x}(t)] $, with $ \overline{x}(t)$ being the average enrichment profile, defined as
+For each element of $\chi $ the FPCA scores are computed as $ s_{ij}=\int \gamma_{ij}(t) dt $, where $ \gamma_{ij}(t)=\xi_{j}(t) [x_{i}(t)-\overline{x}(t)] $, with $ \overline{x}(t)$ being the average ChIP-seq read-enriched profile, defined as:
 \begin{equation}
 \overline{x}(t)=\frac{1}{N} \sum\limits_{i=0}^N x_{i}(t)\mbox{.}
 \end{equation}
 
-Then, an overall binding score is obtained for each peak as
+Then, an overall binding score is obtained for each peak as:
 \begin{equation}
 f^2_{i}=\sum\limits_{j=1}^J (s_{ij} - s_{0j})^2 = \sum\limits_{j=1}^J  \Bigg( \int \gamma_{ij}(t) dt -  \int \gamma_{0j}(t) dt \Bigg)^2\mbox{,} 
 \end{equation}
@@ -92,7 +94,7 @@ f^2_{i}=\sum\limits_{j=1}^J (s_{ij} - s_{0j})^2 = \sum\limits_{j=1}^J  \Bigg( \i
 that is, as the squared distance of a site from the null enrichment profile in the FPC space. The null profile included in $\chi$ serves to introduce a reference in the FPC space representing non-enrichment (zero mapped tags). 
 The higher the value of $f^2_{i}$, the higher the contribution of the site $i$ to the total variability among the shapes of the functions in $\chi $. 
 Candidate peaks are then ordered according to the value of $f^2_{i}$, which allows selecting the subset of those presenting the majority of variation in the data. 
-After that, a modified score $ \tilde{f}^2_{ih} $ is computed for each subpeak $h=1,\ldots,H$ of a candidate site $i$ by means of eq.5, using instead of $ \gamma_{ij}(t) $ its trimmed version
+After that, a modified score $ \tilde{f}^2_{ih} $ can be optionally computed for each subpeak $h=1,\ldots,H$ of a candidate site $i$ by means of eq.(5), using instead of $ \gamma_{ij}(t) $ its trimmed version
 \begin{equation}
 \tilde{\gamma}_{ij}(t) = \left\{ \begin{array}{rl}
  \gamma_{ij}(t) &\mbox{if } t\in{(A_{ih},B_{ih})}\mbox{,}  \\
@@ -107,20 +109,20 @@ where $ (A_{ih},B_{ih}) $ are the intervals in which
 \begin{equation}
  \beta_{T}=\Big( \frac{T}{100} \Big)\times \max_{t,i=1,\ldots,n }\big\{ \gamma_{i}(t) \big\}\mbox{,} 	
 \end{equation}
-where the narrowing threshold $T\in{[0,100]}$, and $P$ is the number of principal components accounting for at least $\alpha $\% of the total variation. In practice, the subpeaks are split and trimmed peaks from the initial list defined in $\chi$. Note that if narrowing threshold $T=0$ the input list is not modified, whereas if $T=100$ just a single punctate source of variation would be reported (an example can be found in the vignette of the Bioconductor package NarrowPeaks). \\
+where the narrowing threshold $T\in{[0,100]}$, and $P$ is the number of principal components accounting for at least $\alpha $\% of the total variation. In practice, the subpeaks are split and trimmed peaks from the initial list defined in $\chi$. Note that if narrowing threshold $T=0$ the input list is not modified, whereas if $T=100$ just a single punctate source of variation would be reported. Using $T=0$ is also useful, as shape-based analyses reported by NarrowPeaks can be combined with results obtained with other peak calling tools, thus providing additional evidence of the peak calls \cite{pmid25853185}, that can increase true positive rate \cite{pmid23282014}. \\
 
-\subsection{Differential Transcription Factor Binding Analysis}
+\subsection{Differential transcription factor binding analysis}
 
-Once confident and reproducible estimates of ChIP-seq peaks are determined for a set of samples, it is of interest in ChIP-seq data analysis determining whether the peak regions (broad or narrow) are bound by other TF, or by the same TF across $w$ distinct temporal, stress, or tissue-specific conditions, in $z_{1},z_{2},\ldots,z_{w}$ sequenced samples (replications) \cite{Bailey2013}. In order to determine those regions of divergent ("variant") binding for multiple treatments, we take as input a consensus list of aggregated peak regions, coming from independent peak calls at each condition, and then apply FPCA for the normalized tag-enrichment of those regions across experiments. First, each genomic region for a sample is represented as a linear combination of B-spline basis functions, then FPCA is performed independently for each site across samples as in Equations (1-5) but discarding the reference null profile, i.e.:
+Once confident and reproducible estimates of ChIP-seq peaks are determined for a set of samples, the next question of interest in ChIP-seq data analysis is determining whether the peak regions are bound by other TF, or by the same TF across $w$ distinct time-, stress-, or tissue-specific conditions, in $z_{1},z_{2},\ldots,z_{w}$ sequenced samples (that have technical or biological replications) \cite{Bailey2013}. In order to determine those regions of divergent ("variant") binding for multiple treatments, we take as input a consensus list of aggregated peak regions, coming from independent peak calls at each condition, and then apply FPCA for the normalized read-enrichment signal of those regions across experiments. First, each genomic region for a sample is represented as a linear combination of B-spline basis functions, then FPCA is performed independently for each site across samples as in Equations (1-5) but discarding the reference null profile, i.e.:
 
 \begin{equation}
-f^2_{i}=\sum\limits_{j=1}^J s_{ij}^2 = \sum\limits_{j=1}^J  \Bigg( \int \gamma_{ij}(t) dt   \Bigg)^2\mbox{,}  
+f^2_{i}=\sum\limits_{j=1}^J s_{ij}^2 = \sum\limits_{j=1}^J  \Bigg( \int \gamma_{ij}(t) dt   \Bigg)^2 
 \end{equation}
 
 In order to detect pairwise differences between conditions, NarrowPeaks uses Hotelling's T$^2$ tests in the FPC space, with the number of components chosen to encapsulate at least $\alpha $\% of variation. The chi-square approximation can be used in the Hotelling's T$^2$ test to relax the assumption of data normality (test="chi" in \texttt{HotellingsT2}, R package \texttt{ICSNP}). To control for multiple testing, $p$-values are corrected using the Benjamini-Hochberg adjustment.
-Therefore, the number of tested samples must be larger than the number of functional principal components considered ($z>j$). 
+The number of tested samples must be larger than the number of functional principal components considered ($z>j$). 
 If there is no significant difference (at a $p$-value cut-off) between the scores, 
-then a chromosomal location is declared as being an "invariant binding event" in terms of measured variability across conditions; if significant differences between the FPC scores are detected, then the site is declared as a "variant binding event".
+then a chromosomal location is declared as being an "invariant binding event" in terms of measured variability across conditions; if significant differences between the FPC scores are detected, then the site is declared as a "variant binding event" (see \cite{pmid25853185} for an application of this method).
 
 
 
@@ -155,9 +157,9 @@ head(candidates)
 @
 \end{small}
 
-If \Biocpkg{CSAR} \cite{Muino2011} is used first to analyze ChIP-seq data, from its results we can obtain the false discovery rate (FDR) for a given threshold. For example, for the complete experiment described in \cite{Kaufmann2010}, \Robject{t = 10.81} corresponds to FDR = 0.01 and \Robject{t = 6.78} corresponds to FDR = 0.1. \\
+If \Biocpkg{CSAR} \cite{Muino2011} is used first to analyze ChIP-seq data, from the results we can obtain the false discovery rate (FDR) for a given threshold. For example, for the complete experiment described in \cite{Kaufmann2010}, \Robject{t = 10.81} corresponds to FDR = 0.01 and \Robject{t = 6.78} corresponds to FDR = 0.1. \\
 
-Now we want to narrow down the candidate sites with the function \Rfunction{narrowpeaks} to obtain shortened peaks , representing each candidate signal as a linear combination of \Robject{nbf} $B$-spline basis functions with no derivative penalization \cite{Ramsay2005}. We can specify the amount of miminum variance \Robject{pv} we want to describe in form of \Robject{npcomp} principal components, and establish a cutoff \Robject{pmaxscor} for trimming of scoring functions of the candidate sites \cite{MadrigalSubmitted}.
+Now we could narrow down the candidate sites with the function \Rfunction{narrowpeaks} to obtain shortened peaks, representing each candidate signal as a linear combination of \Robject{nbf} $B$-spline basis functions with no derivative penalization \cite{Ramsay2005}. We can specify the amount of miminum variance \Robject{pv} we want to describe in form of \Robject{npcomp} principal components, and establish a cutoff \Robject{pmaxscor} for trimming of scoring functions of the candidate sites.
 
 We will run the function for three different values of the cutoff: \Robject{pmaxscor = 0} (no cutoff), \Robject{pmaxscor = 3} (cutoff is at 3\% level of the maximum value relative to the scoring PCA functions) and  \Robject{pmaxscor = 100} (cutoff is at the maximum value relative to the scoring PCA functions).
 
@@ -181,8 +183,8 @@ head(shortpeaksP100$narrowPeaks)
 
 
 
-As we can see, there is no difference between \Robject{broadPeaks} and \Robject{narrowPeaks} for \Robject{pmaxscor = 0}, whereas for \Robject{pmaxscor = 100} just one punctual source of variation is reported. 
-The number of components (\Robject{reqcomp}) required, as well as the variance (\Robject{pvar}) achieved, are the same for all three cases (\Robject{pmaxscor} of 0, 3 and 100). 
+As one can see, there is no difference between \Robject{broadPeaks} and \Robject{narrowPeaks} for \Robject{pmaxscor = 0}, whereas for \Robject{pmaxscor = 100} just one punctual source of variation is reported. 
+The number of components (\Robject{reqcomp}) required, as well as the variance (\Robject{pvar}) achieved, are the same for all three cases (\Robject{pmaxscor} of 0, 3 and 100). As our goal was to combine evidence (\cite{Bailey2013,pmid23282014}) of peak calls provided by MACS \cite{pmid18798982} and NarrowPeaks, we used \Robject{pmaxscor = 0} in \cite{pmid25853185}.
 
 \begin{small}
 <<final number of components and variance>>=
@@ -201,7 +203,7 @@ shortpeaksP90ms20 <- narrowpeaks(inputReg=candidates,scoresInfo=wigScores$infosc
  rpenalty=0,nderiv=0, npcomp=2, pv=80, pmaxscor=90, ms=20)
 @
 \end{small}
-We can make use of the class \Rclass{GRangesLists} in the package \Biocpkg{GenomicRanges} to create a compound structure:
+We could make use of the class \Rclass{GRangesLists} in the package \Biocpkg{GenomicRanges} to create a list:
 
 \begin{small}
 <<create GRangesLists>>=

@@ -24,8 +24,8 @@
 \tabular{ll}{
 Package: \tab NarrowPeaks\cr
 Type: \tab Package\cr
-Version: \tab 1.13.1\cr
-Date: \tab 2015-05-01\cr
+Version: \tab 1.13.3\cr
+Date: \tab 2015-06-01\cr
 License: \tab Artistic-2.0\cr
 LazyLoad: \tab yes\cr
 }
