@@ -59,7 +59,8 @@ Ramsay, J.O. and Silverman, B.W. (2005) Functional Data Analysis. New York:
 
 ##Example code:
 ##library(NarrowPeaks)
-##bigwigs <- c("SVP_WT_rep1.bw","SVP_WT_rep2.bw","SVP_WT_rep3.bw","SVP_mt_rep1.bw","SVP_mt_rep2.bw","SVP_mt_rep3.bw")
+##bigwigs <- c("SVP_WT_rep1.bw","SVP_WT_rep2.bw","SVP_WT_rep3.bw",
+## "SVP_mt_rep1.bw","SVP_mt_rep2.bw","SVP_mt_rep3.bw")
 ##conds   <- c("SVP_WT","SVP_WT","SVP_WT","SVP_mt","SVP_mt","SVP_mt")
 ##x <- narrowpeaksDiff(bedFile="regions.bed", bigwigs=bigwigs, conditions=conds, variation = 0.8)
 ##x$p.values
