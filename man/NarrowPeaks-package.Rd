@@ -35,7 +35,7 @@ LazyLoad: \tab yes\cr
 Pedro Madrigal, with contributions from Pawel Krajewski 
 \email{pkra@igr.poznan.pl}
 
-Maintainer: Pedro Madrigal \email{pm12@sanger.ac.uk}
+Maintainer: Pedro Madrigal \email{dnaseiseq@gmail.com}
 
 }
 \references{ Mateos JL, Madrigal P, et al. (2015) Combinatorial activities of SHORT VEGETATIVE PHASE and FLOWERING LOCUS C define distinct modes of flowering regulation in Arabidopsis. Genome Biology 16: 31.\cr
