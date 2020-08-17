@@ -1,6 +1,6 @@
 Package: NarrowPeaks
-Version: 1.33.2
-Date: 2020-07-02
+Version: 1.33.3
+Date: 2020-08-16
 Type: Package
 Title: Shape-based Analysis of Variation in ChIP-seq using Functional PCA
 Author: Pedro Madrigal <bioinformatics.engineer@gmail.com>, Pawel Krajewski <pkra@igr.poznan.pl>
@@ -27,4 +27,4 @@ Suggests: rtracklayer, BiocStyle, GenomicRanges, CSAR
 License: Artistic-2.0
 biocViews: Visualization, ChIPSeq, Transcription, Genetics, Sequencing,
         Sequencing
-PackageStatus: Deprecated
+

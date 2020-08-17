@@ -134,7 +134,7 @@ First, we load the \Biocpkg{NarrowPeaks} package and the data \Rclass{NarrowPeak
 Using the function \Rfunction{wig2CSARScore} a set of binary files is constructed storing the enrichment-score profiles.
 
 \begin{small}
-<<write score binaries from a WIG file>>=  
+<<write score binaries from a WIG file, eval=FALSE>>=  
 library(NarrowPeaks)
 data("NarrowPeaks-dataset")
 head(wigfile_test)
@@ -150,7 +150,7 @@ Next, the candidate binding site regions are extracted using the Bioconductor pa
 Alternatively, ChIP-seq peaks obtained using other peak-callers can be provided building an analogous \Robject{GRanges} object. In this case, the metadata 'score' must represent a numeric value directly proportional to the confidence of the peak ($p$-value) or the strength of the binding (fold-change).
 
 \begin{small}
-<<extract candidate regions of enrichment in GRanges object>>=
+<<extract candidate regions of enrichment in GRanges object, eval=FALSE>>=
 library(CSAR)
 candidates <- sigWin(experiment=wigScores$infoscores, t=1.0, g=30)
 head(candidates)
@@ -165,7 +165,7 @@ We will run the function for three different values of the cutoff: \Robject{pmax
 
 
 \begin{small}
-<<narrow down enriched regions by funtional PCA>>=
+<<narrow down enriched regions by funtional PCA, eval=FALSE>>=
 shortpeaksP0 <- narrowpeaks(inputReg=candidates, scoresInfo=wigScores$infoscores, lmin=0, nbf=25,
  rpenalty=0, nderiv=0, npcomp=2, pv=80, pmaxscor=0.0, ms=0)
 head(shortpeaksP0$broadPeaks)
@@ -187,7 +187,7 @@ As one can see, there is no difference between \Robject{broadPeaks} and \Robject
 The number of components (\Robject{reqcomp}) required, as well as the variance (\Robject{pvar}) achieved, are the same for all three cases (\Robject{pmaxscor} of 0, 3 and 100). As our goal was to combine evidence (\cite{Bailey2013,pmid23282014}) of peak calls provided by MACS \cite{pmid18798982} and NarrowPeaks, we used \Robject{pmaxscor = 0} in \cite{pmid25853185}.
 
 \begin{small}
-<<final number of components and variance>>=
+<<final number of components and variance, eval=FALSE>>=
 print(shortpeaksP0$reqcomp)
 print(shortpeaksP0$pvar)
 @
@@ -196,7 +196,7 @@ print(shortpeaksP0$pvar)
 Now, we can do the same for \Robject{pmaxscor = 90} and the result consists of 3 peaks very close to each other. We can tune the parameter \Robject{ms} to merge the sites into a unique peak:
 
 \begin{small}
-<<merge neighbouring narrow peaks>>=
+<<merge neighbouring narrow peaks, eval=FALSE>>=
 shortpeaksP90 <- narrowpeaks(inputReg=candidates,scoresInfo=wigScores$infoscores, lmin=0, nbf=25,
  rpenalty=0, nderiv=0, npcomp=2, pv=80, pmaxscor=90, ms=0)
 shortpeaksP90ms20 <- narrowpeaks(inputReg=candidates,scoresInfo=wigScores$infoscores, lmin=0, nbf=25,
@@ -206,7 +206,7 @@ shortpeaksP90ms20 <- narrowpeaks(inputReg=candidates,scoresInfo=wigScores$infosc
 We could make use of the class \Rclass{GRangesLists} in the package \Biocpkg{GenomicRanges} to create a list:
 
 \begin{small}
-<<create GRangesLists>>=
+<<create GRangesLists, eval=FALSE>>=
 library(GenomicRanges)
 exampleMerge <- GRangesList("narrowpeaksP90"=shortpeaksP90$narrowPeaks,
 "narrowpeaksP90ms20"=shortpeaksP90ms20$narrowPeaks);
@@ -217,7 +217,7 @@ exampleMerge
 Finally, we can export \Rclass{GRanges} objects or \Rclass{GRangesLists} into WIG, bedGraph, bigWig or other format files using the package \Biocpkg{rtracklayer}. For example:
 
 \begin{small}
-<<export GRanges to annotation tracks in various formats>>=
+<<export GRanges to annotation tracks in various formats, eval=FALSE>>=
 library(GenomicRanges)
 names(elementMetadata(shortpeaksP3$broadPeaks))[3] <- "score"
 names(elementMetadata(shortpeaksP3$narrowPeaks))[2] <- "score"
